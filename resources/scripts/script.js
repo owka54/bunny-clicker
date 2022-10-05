@@ -1,6 +1,6 @@
 let carrots = 0;
-let total1 = 0;
-let cost1 = 10;
+let pawTotal = 0;
+let pawCost = 10;
 
 let perSecond = 0;
 
@@ -9,29 +9,37 @@ function carrotClick() {
     document.getElementById('total-carrots').innerHTML = Math.floor(carrots);
 }
 
+// Invoke idleIncrement every second
 var interval = setInterval(idleIncrement, 1000);
-
+// Increment carrot count by idle amount
 function idleIncrement() {
     carrots += perSecond;
     document.getElementById('total-carrots').innerHTML = Math.floor(carrots);
 }
+// Calculate and display carrots per second
+function idleCarrots() {
+    perSecond = (0.1 * pawTotal)
+    const onedp = perSecond.toFixed(1)
+    console.log(onedp)
+    document.getElementById('idle-carrots').innerHTML = `${onedp} carrots per second`;
+}
 
+// Store item - PAW
 
-
-function item1Buy() {
+function pawBuy() {
     // Check to see if the player has enough carrots
-    if (carrots < cost1) {
+    if (carrots < pawCost) {
         alert('Insufficient carrots')
         return;
     }
-    total1 += 1;
-    carrots = carrots - cost1;
-    document.getElementById('total1').innerHTML = total1;
+    pawTotal += 1;
+    carrots = carrots - pawCost;
+    document.getElementById('paw-total').innerHTML = `x${pawTotal}`;
     document.getElementById('total-carrots').innerHTML = Math.floor(carrots);
 
     // Increase cost each time user buys 1
-    cost1 += cost1 * 0.1;
-    document.getElementById('cost1').innerHTML = cost1.toFixed(1);
+    pawCost += pawCost * 0.1;
+    document.getElementById('paw-cost').innerHTML = pawCost.toFixed(1);
 
     // Invoke idleCarrots to increase carrots per second
     idleCarrots();
@@ -39,9 +47,4 @@ function item1Buy() {
 
 
 
-function idleCarrots() {
-    perSecond = (0.1 * total1)
-    const onedp = perSecond.toFixed(1)
-    console.log(onedp)
-    document.getElementById('idle-carrots').innerHTML = `${onedp} carrots per second`;
-}
+

@@ -9,7 +9,9 @@
     <title>Bunny Clicker</title>
 </head>
 <body>
-    <header></header>
+    <header>
+        <img id='logo' src="./resources/images/logo.png" alt="bunny with carrot">
+    </header>
 
     <main>
         <div>
@@ -22,11 +24,12 @@
             <h2>Store</h2>
             <ul>
                 <div class="store-item">
-                    <li>
-                        <h3>Item 1</h3>
-                        <p class="cost">Cost: <span id="cost1">10</span></p>
-                        <p>Total: <span id="total1">0</span></p>
-                        <button onclick={item1Buy()}>Buy 1</button> 
+                    <li id="paw">
+                        <p id="paw-total"></p>
+                        <img src="./resources/images/paw.png" alt="Bunny paw">
+                        <h3>Bunny Paw</h3>
+                        <p class="cost">Cost: <span id="paw-cost">10</span></p>
+                        <button onclick={pawBuy()}>Buy 1</button> 
                     </li>
                 </div>
                 <div class="store-item">

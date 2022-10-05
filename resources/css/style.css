@@ -1,9 +1,19 @@
 body {
     background-color: rgb(24, 24, 24);
     color: white;
+    margin: 0;
 }
 
+/* Header */
+header {
+    margin: 0;
+}
+#logo {
+    height: 10rem;
+    position: absolute;
+}
 
+/* Main */
 main {
     text-align: center;
 }
@@ -21,7 +31,7 @@ main {
 }
 
 
-
+/* Store */
 .store ul {
     list-style-type: none;
     padding: 0;
@@ -40,10 +50,21 @@ main {
 .store ul li .cost {
     color: crimson;
 }
-.store ul li .cost #cost1 {
+.store ul li .cost #paw-cost {
+    text-decoration: underline;
     color: white;
 }
 .store ul li button {
-    height: 1.5rem;
+    height: 2rem;
+    width: 4rem;
+    border-radius: 1rem;
+    color: green;
+    font-weight: bold;
 }
 
+
+/* Store items */
+/* Paw store item */
+.store .store-item #paw img {
+    height: 3rem;
+}
