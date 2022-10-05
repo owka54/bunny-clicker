@@ -1,0 +1,49 @@
+body {
+    background-color: rgb(24, 24, 24);
+    color: white;
+}
+
+
+main {
+    text-align: center;
+}
+#total-carrots {
+    font-size: 3rem;
+    padding: 2rem;
+}
+#main-carrot {
+    padding: 2rem;
+    height: 20rem;
+}
+#main-carrot:active {
+    top: .1rem;
+    transform: translateY(.1rem);
+}
+
+
+
+.store ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+}
+.store ul li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+.store ul li h3, .store ul li p, .store ul li button {
+    margin: 1rem;
+}
+.store ul li .cost {
+    color: crimson;
+}
+.store ul li .cost #cost1 {
+    color: white;
+}
+.store ul li button {
+    height: 1.5rem;
+}
+

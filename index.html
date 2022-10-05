@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./resources/css/style.css">
+    <link rel="icon" href="./resources/images/logo.ico">
+    <title>Bunny Clicker</title>
+</head>
+<body>
+    <header></header>
+
+    <main>
+        <div>
+            <div id="total-carrots">0</div>
+            <div id="idle-carrots"></div>
+            <img id='main-carrot' src="./resources/images/carrot.png" alt="A carrot" onclick={carrotClick()}>   
+        </div>
+
+        <div class="store">
+            <h2>Store</h2>
+            <ul>
+                <div class="store-item">
+                    <li>
+                        <h3>Item 1</h3>
+                        <p class="cost">Cost: <span id="cost1">10</span></p>
+                        <p>Total: <span id="total1">0</span></p>
+                        <button onclick={item1Buy()}>Buy 1</button> 
+                    </li>
+                </div>
+                <div class="store-item">
+                    <li>Item 2</li>
+                </div>
+                <div class="store-item">
+                    <li>Item 3</li>
+                </div>
+            </ul>
+        </div>
+    </main>
+
+    <footer></footer>
+
+    <script src="./resources/scripts/script.js"></script>
+</body>
+</html>
