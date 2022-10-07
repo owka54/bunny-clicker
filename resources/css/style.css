@@ -31,6 +31,10 @@ main {
 }
 
 
+.buy-container {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
 /* Store */
 .store ul {
     list-style-type: none;
@@ -41,7 +45,7 @@ main {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 .store ul li h3, .store ul li p, .store ul li button {
     margin: 1rem;
@@ -66,9 +70,8 @@ main {
 .store .store-item {
     border: 3px solid burlywood;
     box-shadow: 3px 3px black;
-    width: 75%;
-    margin: 1rem auto;
-    padding: 1rem
+    padding: 1rem;
+    text-align: center;
 }
 /* Paw store item */
 .store .store-item img {
@@ -80,10 +83,14 @@ main {
 .upgrades button {
     height: 4rem;
     width: 4rem;
-    border: 2px solid lime;
+    border: 2px solid burlywood;
     background-color: black;
     color: white;
 }
 .upgrades button:hover {
     background-color: grey;
+}
+
+.upgrades .purchased-upgrade:hover {
+    background-color: black;
 }
