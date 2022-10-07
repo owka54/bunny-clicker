@@ -79,18 +79,29 @@ main {
 }
 
 /* Upgrades */
-
-.upgrades button {
+.upgrades-store {
+    text-align: center;
+    margin: 0 auto;
+}
+.upgrades-store .upgrades {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.upgrades-store .upgrade {
+    width: 4rem;
+}
+.upgrades-store button {
     height: 4rem;
     width: 4rem;
     border: 2px solid burlywood;
     background-color: black;
     color: white;
 }
-.upgrades button:hover {
+.upgrades-store button:hover {
     background-color: grey;
 }
-
-.upgrades .purchased-upgrade:hover {
-    background-color: black;
+.upgrades-store .upgrade {
+    margin: 1rem;
 }

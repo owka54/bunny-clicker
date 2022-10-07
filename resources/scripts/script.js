@@ -130,14 +130,25 @@ let purchasedUpgrades = [];
 
 
 var upgradeInterval = setInterval(checkUpgrades, 5000);
-if (allTimeCarrots < 100) {
+if (allTimeCarrots < 50) {
+    const elements = document.getElementsByClassName('paw-upgrade');
+    for (let element in elements) {
+        elements[element].hidden = true;
+    }
+}
+if (allTimeCarrots < 250) {
     const elements = document.getElementsByClassName('click-upgrade');
     for (let element in elements) {
         elements[element].hidden = true;
     }
 }
 function checkUpgrades() {
-    if (allTimeCarrots >= 100 && (!purchasedUpgrades.includes('clickUpgrade'))) {
+    if (allTimeCarrots >= 50 && (!purchasedUpgrades.includes('pawUpgrade'))) {
+        const elements = document.getElementsByClassName('paw-upgrade');
+        for (let element in elements) {
+            elements[element].hidden = false;
+    }} 
+    if (allTimeCarrots >= 250 && (!purchasedUpgrades.includes('clickUpgrade'))) {
         const elements = document.getElementsByClassName('click-upgrade');
         for (let element in elements) {
             elements[element].hidden = false;
@@ -160,6 +171,7 @@ function clickUpgrade() {
     document.getElementsByClassName('click-upgrade')[0].disabled = true;
     document.getElementsByClassName('click-upgrade')[0].style.borderColor = 'lime';
     document.getElementsByClassName('click-upgrade')[0].style.setProperty('background-color', 'black');
+    document.getElementsByClassName('click-upgrade')[0].style.marginBottom = '3rem'
 }
 
 function pawUpgrade() {
@@ -178,5 +190,7 @@ function pawUpgrade() {
     document.getElementsByClassName('paw-upgrade')[0].disabled = true;
     document.getElementsByClassName('paw-upgrade')[0].style.borderColor = 'lime';
     document.getElementsByClassName('paw-upgrade')[0].style.setProperty('background-color', 'black');
+    document.getElementsByClassName('paw-upgrade')[0].style.marginBottom = '3rem'
+
 
 }
