@@ -49,7 +49,7 @@ main {
 .store ul li .cost {
     color: crimson;
 }
-.store ul li .cost #paw-cost {
+.store ul li .cost span {
     text-decoration: underline;
     color: white;
 }
@@ -71,6 +71,19 @@ main {
     padding: 1rem
 }
 /* Paw store item */
-.store .store-item #paw img {
+.store .store-item img {
     height: 3rem;
+}
+
+/* Upgrades */
+
+.upgrades button {
+    height: 4rem;
+    width: 4rem;
+    border: 2px solid lime;
+    background-color: black;
+    color: white;
+}
+.upgrades button:hover {
+    background-color: grey;
 }
