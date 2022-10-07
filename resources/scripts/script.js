@@ -5,6 +5,7 @@ let perSecond = 0;
 
 let pawTotal = 0;
 let pawCost = 10;
+let pawIdle = 0.1;
 
 let hayTotal = 0;
 let hayCost = 100;
@@ -32,7 +33,7 @@ function idleIncrement() {
 }
 // Calculate and display carrots per second
 function idleCarrots() {
-    perSecond = ((0.1 * pawTotal) + (1 * hayTotal) + (5 * flowerTotal) + (25 * bunnyTotal))
+    perSecond = ((pawIdle * pawTotal) + (1 * hayTotal) + (5 * flowerTotal) + (25 * bunnyTotal))
     const onedp = perSecond.toFixed(1)
     console.log(onedp)
     document.getElementById('idle-carrots').innerHTML = `${onedp} carrots per second`;
@@ -159,6 +160,23 @@ function clickUpgrade() {
     document.getElementsByClassName('click-upgrade')[0].disabled = true;
     document.getElementsByClassName('click-upgrade')[0].style.borderColor = 'lime';
     document.getElementsByClassName('click-upgrade')[0].style.setProperty('background-color', 'black');
+}
 
+function pawUpgrade() {
+    if (carrots < 100) {
+        alert('Not enough carrots!');
+        return;
+    }
+    pawIdle = 0.2;
+    purchasedUpgrades.push('pawUpgrade')
+    idleCarrots();
+
+    carrots -= 100;
+    document.getElementById('total-carrots').innerHTML = Math.floor(carrots);
+
+    document.getElementsByClassName('paw-upgrade')[1].hidden = true;
+    document.getElementsByClassName('paw-upgrade')[0].disabled = true;
+    document.getElementsByClassName('paw-upgrade')[0].style.borderColor = 'lime';
+    document.getElementsByClassName('paw-upgrade')[0].style.setProperty('background-color', 'black');
 
 }
