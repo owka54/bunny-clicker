@@ -100,14 +100,28 @@
             <div class="upgrades-store">
                 <h2>Upgrades</h2>
                 <div class="upgrades">
+
                     <div class="upgrade">
-                        <button class="paw-upgrade" onclick={pawUpgrade()}>Paw x2</button>
-                        <p class="paw-upgrade">Cost: 100</p>
+                        <div id="paw-upgrade">
+                            <button  onclick={pawUpgrade()}>Paw x2</button>
+                            <p>Cost: 100</p>
+                        </div>
                     </div>
+
                     <div class="upgrade">
-                        <button class="click-upgrade" onclick={clickUpgrade()}>Click x2</button>
-                        <p class="click-upgrade">Cost: 500</p>
+                        <div id="click-upgrade">
+                            <button onclick={clickUpgrade()}>Click x2</button>
+                            <p>Cost: 500</p>
+                        </div>
                     </div>
+
+                    <div class="upgrade">
+                        <div id="hay-upgrade">
+                            <button onclick={hayUpgrade()}>Hay x2</button>
+                            <p>Cost:1000</p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -131,7 +145,9 @@
         </div>
     </main>
 
-    <footer></footer>
+    <footer>
+        <button id='reset-button' onClick={resetGame()}>Reset Game</button>
+    </footer>
 
     <script src="./resources/scripts/script.js"></script>
 </body>

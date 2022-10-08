@@ -117,3 +117,14 @@ main {
 .achievements .achievements-display .achievement h4 {
     text-decoration: underline;
 }
+
+
+footer {
+    padding: 1rem;
+    text-align: right;
+}
+#reset-button {
+    background-color: red;
+    color: white;
+    border: none;
+}
