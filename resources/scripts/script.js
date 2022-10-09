@@ -118,6 +118,7 @@ function loadGame() {
 
     if (typeof savedGame.achievementsGot !== 'undefined') achievementsGot = savedGame.achievementsGot;
     if (typeof savedGame.totalAchievements !== 'undefined') totalAchievements = savedGame.totalAchievements;
+    if (typeof savedGame.noOfAchievements !== 'undefined') noOfAchievements = savedGame.noOfAchievements;
 
 
 }
@@ -161,7 +162,8 @@ function saveGame() {
         purchasedUpgrades: purchasedUpgrades,
 
         achievementsGot: achievementsGot,
-        totalAchievements: totalAchievements
+        totalAchievements: totalAchievements,
+        noOfAchievements: noOfAchievements
     };
     localStorage.setItem('gameSave', JSON.stringify(gameSave));
 
@@ -197,6 +199,9 @@ window.onload = function() {
 
     for (let achievement in achievementsGot) {
         document.getElementById(achievementsGot[achievement]).hidden = false;
+        document.getElementById(achievementsGot[achievement]).style.border = '2px solid gold'
+        document.getElementById(achievementsGot[achievement]).style.height = '8rem'
+        document.getElementById(achievementsGot[achievement]).style.width = '8rem'
     }
 
     for (let upgrade in purchasedUpgrades) {
@@ -209,6 +214,8 @@ window.onload = function() {
         document.querySelector(`#${purchasedUpgrades[upgrade]} button`).style.marginBottom = '3rem'
         document.querySelector(`#${purchasedUpgrades[upgrade]} p`).hidden = true
     }
+
+    document.querySelector('.achievements h2').innerHTML = `Acievements (${totalAchievements} / ${noOfAchievements})`;
     
 }
 
@@ -448,36 +455,98 @@ function hayUpgrade() {
 
 let achievementsGot = [];
 let totalAchievements = 0;
+let noOfAchievements = 5;
 
 
 
 // Add 1% to carrots per second for every achievement earned
 function achievementBonus() {
-    let totalBonus = totalAchievements * 0.1;
+    let totalBonus = totalAchievements * 0.01;
     perSecond += perSecond * totalBonus;
-}
+    let percentageBoost = totalBonus * 100
+    if (totalBonus > 0) {
+        document.querySelector('.achievements p').innerHTML = `Total boost = ${percentageBoost}%`
+}}
 
+// click achievements
 if (totalClicks < 100) {
     document.getElementById('achievement-onehundred-clicks').hidden = true
 }
+// cps achievements
+if (perSecond < 10) {
+    document.getElementById('achievement-ten-cps').hidden = true
+}
+// paw achievements
 if (pawTotal < 10) {
     document.getElementById('achievement-ten-paws').hidden = true
+}
+// hay achievements
+if (hayTotal < 10) {
+    document.getElementById('achievement-ten-hay').hidden = true
+}
+// flower achievements
+if (flowerTotal < 10) {
+    document.getElementById('achievement-ten-flower').hidden = true
 }
 
 var achievemntInterval = setInterval(checkAchievements, 5000);
 function checkAchievements() {
-    if (totalClicks > 100 && (!achievementsGot.includes('achievement-onehundred-clicks'))) {
+    // click
+    if (totalClicks >= 100 && (!achievementsGot.includes('achievement-onehundred-clicks'))) {
         document.getElementById('achievement-onehundred-clicks').hidden = false
+        document.getElementById('achievement-onehundred-clicks').style.border = '2px solid gold'
+        document.getElementById('achievement-onehundred-clicks').style.height = '8rem'
+        document.getElementById('achievement-onehundred-clicks').style.width = '8rem'
         achievementsGot.push('achievement-onehundred-clicks')
         totalAchievements += 1
         idleCarrots()
         alert('Achievement unlocked!\nClick 100 times.')
     }
+    // cps
+    if (perSecond >= 10 && (!achievementsGot.includes('achievement-ten-cps'))) {
+        document.getElementById('achievement-ten-cps').hidden = false
+        document.getElementById('achievement-ten-cps').style.border = '2px solid gold'
+        document.getElementById('achievement-ten-cps').style.height = '8rem'
+        document.getElementById('achievement-ten-cps').style.width = '8rem'
+        achievementsGot.push('achievement-ten-cps')
+        totalAchievements += 1
+        idleCarrots()
+        alert('Achievement unlocked!\nGet 10 carrots per second')
+    }
+    // paw
     if (pawTotal >= 10 && (!achievementsGot.includes('achievement-ten-paws'))) {
         document.getElementById('achievement-ten-paws').hidden = false
+        document.getElementById('achievement-ten-paws').style.border = '2px solid gold'
+        document.getElementById('achievement-ten-paws').style.height = '8rem'
+        document.getElementById('achievement-ten-paws').style.width = '8rem'
         achievementsGot.push('achievement-ten-paws')
         totalAchievements += 1
         idleCarrots()
         alert('Achievement unlocked!\nHave 10 paws')
     }
+    // hay
+    if (hayTotal >= 10 && (!achievementsGot.includes('achievement-ten-hay'))) {
+        document.getElementById('achievement-ten-hay').hidden = false;
+        document.getElementById('achievement-ten-hay').style.border = '2px solid gold'
+        document.getElementById('achievement-ten-hay').style.height = '8rem'
+        document.getElementById('achievement-ten-hay').style.width = '8rem'
+        achievementsGot.push('achievement-ten-hay');
+        totalAchievements += 1;
+        idleCarrots()
+        alert('Achievement unlocked!\nHave 10 hay')
+    }
+    // flower
+    if (flowerTotal >= 10 && (!achievementsGot.includes('achievement-ten-flower'))) {
+        document.getElementById('achievement-ten-flower').hidden = false;
+        document.getElementById('achievement-ten-flower').style.border = '2px solid gold'
+        document.getElementById('achievement-ten-flower').style.height = '8rem'
+        document.getElementById('achievement-ten-flower').style.width = '8rem'
+        achievementsGot.push('achievement-ten-flower');
+        totalAchievements += 1;
+        idleCarrots()
+        alert('Achievement unlocked!\nHave 10 flower')
+    }
+
+    document.querySelector('.achievements h2').innerHTML = `Acievements (${totalAchievements} / ${noOfAchievements})`;
+
 }
