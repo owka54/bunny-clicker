@@ -11,6 +11,7 @@
 <body>
     <header>
         <!-- <img id='logo' src="./resources/images/logo.png" alt="bunny with carrot"> -->
+        <button id='reset-button' onClick={resetGame()}>Reset Game</button>
     </header>
 
     <main>
@@ -28,7 +29,10 @@
                     <div class="store-item">
                         <li id="paw">
                             <p id="paw-total"></p>
-                            <img src="./resources/images/paw.png" alt="Bunny paw">
+                            <div>
+                                <div class="item-info"></div>
+                                <img src="./resources/images/paw.png" alt="Bunny paw">
+                            </div>
                             <h3>Bunny Paw</h3>
                             <p class="cost">Cost: <span id="paw-cost">10</span></p>
                             <button onclick={pawBuy()}>Buy 1</button> 
@@ -38,7 +42,10 @@
                     <div class="store-item">
                         <li id="hay">
                             <p id="hay-total"></p>
-                            <img src="./resources/images/hay-roll.png" alt="Hay roll">
+                            <div>
+                                <div class="item-info"></div>
+                                <img src="./resources/images/hay-roll.png" alt="Hay roll">
+                            </div>
                             <h3>Hay</h3>
                             <p class ='cost'>Cost: <span id="hay-cost">100</span></p>
                             <button onClick={hayBuy()}>Buy 1</button>
@@ -48,7 +55,10 @@
                     <div class="store-item">
                         <li id="flower">
                             <p id="flower-total"></p>
-                            <img src="./resources/images/rose.png" alt="Rose">
+                            <div>
+                                <div class="item-info"></div>
+                                <img src="./resources/images/rose.png" alt="Rose">
+                            </div>
                             <h3>Flower</h3>
                             <p class ='cost'>Cost: <span id="flower-cost">500</span></p>
                             <button onClick={flowerBuy()}>Buy 1</button>
@@ -58,7 +68,10 @@
                     <div class="store-item">
                         <li id="water">
                             <p id="water-total"></p>
-                            <img src="./resources/images/drink-bottle.png" alt="Water bottle">
+                            <div>
+                                <div class="item-info"></div>
+                                <img src="./resources/images/drink-bottle.png" alt="Water bottle">
+                            </div>
                             <h3>Water</h3>
                             <p class ='cost'>Cost: <span id="water-cost">1000</span></p>
                             <button onClick={waterBuy()}>Buy 1</button>
@@ -68,7 +81,10 @@
                     <div class="store-item">
                         <li id="hutch">
                             <p id="hutch-total"></p>
-                            <img src="./resources/images/rabbit-hutch.png" alt="Rabbit hutch">
+                            <div>
+                                <div class="item-info"></div>
+                                <img src="./resources/images/rabbit-hutch.png" alt="Rabbit hutch">
+                            </div>
                             <h3>Hutch</h3>
                             <p class ='cost'>Cost: <span id="hutch-cost">2500</span></p>
                             <button onClick={hutchBuy()}>Buy 1</button>
@@ -78,7 +94,10 @@
                     <div class="store-item">
                         <li id="bunny">
                             <p id="bunny-total"></p>
-                            <img src="./resources/images/bunny.png" alt="Bunny with carrot">
+                            <div>
+                                <div class="item-info"></div>
+                                <img src="./resources/images/bunny.png" alt="Bunny with carrot">
+                            </div>
                             <h3>Bunny</h3>
                             <p class="cost">Cost: <span id="bunny-cost">5000</span></p>
                             <button onclick={bunnyBuy()}>Buy 1</button>
@@ -88,7 +107,10 @@
                     <div class="store-item">
                         <li id="farm">
                             <p id="farm-total"></p>
-                            <img src="./resources/images/farm.png" alt="Farm">
+                            <div>
+                                <div class="item-info"></div>
+                                <img src="./resources/images/farm.png" alt="Farm">
+                            </div>
                             <h3>Farm</h3>
                             <p class="cost">Cost: <span id="farm-cost">10000</span></p>
                             <button onclick={farmBuy()}>Buy 1</button>
@@ -114,11 +136,24 @@
                             <p>Cost: 500</p>
                         </div>
                     </div>
+                    <div class="upgrade">
+                        <div id="click-upgrade2">
+                            <button onclick={clickUpgrade2()}>Click x2</button>
+                            <p>Cost:2000</p>
+                        </div>
+                    </div>
 
                     <div class="upgrade">
                         <div id="hay-upgrade">
-                            <button onclick={hayUpgrade()}>Hay x2</button>
-                            <p>Cost:1000</p>
+                            <button onclick={hayUpgrade()}>Hay x1.5</button>
+                            <p>Cost: 750</p>
+                        </div>
+                    </div>
+
+                    <div class="upgrade">
+                        <div id="flower-upgrade">
+                            <button onclick={flowerUpgrade()}>Flower x1.5</button>
+                            <p>Cost:1250</p>
                         </div>
                     </div>
 
@@ -131,9 +166,34 @@
             <p></p>
             <div class='achievements-display'>
                 <div class="achievement">
+                    <div id="achievement-one-click">
+                        <h4>My first carrot</h4>
+                        <p>Click 1 time</p>
+                    </div>
+                </div>
+                <div class="achievement">
                     <div id="achievement-onehundred-clicks">
                         <h4>Clicktastic</h4>
                         <p>Click 100 times</p>
+                    </div>
+                </div>
+                <div class="achievement">
+                    <div id="achievement-onethousand-clicks">
+                        <h4>Starting to ache?</h4>
+                        <p>Click 1000 times</p>
+                    </div>
+                </div>
+                <div class="achievement">
+                    <div id="achievement-tenthousand-clicks">
+                        <h4>Carpal tunnel incomming</h4>
+                        <p>Click 10000 times</p>
+                    </div>
+                </div>
+
+                <div class="achievement">
+                    <div id="achievement-one-cps">
+                        <h4>1 cps</h4>
+                        <p>Get 1 carrot per second</p>
                     </div>
                 </div>
                 <div class="achievement">
@@ -143,17 +203,38 @@
                     </div>
                 </div>
                 <div class="achievement">
+                    <div id="achievement-fifty-cps">
+                        <h4>50 cps</h4>
+                        <p>Get 50 carrots per second</p>
+                    </div>
+                </div>
+                <div class="achievement">
+                    <div id="achievement-onehundred-cps">
+                        <h4>100 cps</h4>
+                        <p>Get 100 carrots per second</p>
+                    </div>
+                </div>
+
+                <div class="achievement">
+                    <div id="achievement-one-paw">
+                        <h4>Helping paw</h4>
+                        <p>Have 1 paw</p>
+                    </div>
+                </div>
+                <div class="achievement">
                     <div id="achievement-ten-paws">
                         <h4>10 Paws</h4>
                         <p>Have 10 paws</p>
                     </div>
                 </div>
+
                 <div class="achievement">
                     <div id="achievement-ten-hay">
                         <h4>10 Hay</h4>
                         <p>Have 10 hay</p>
                     </div>
                 </div>
+
                 <div class="achievement">
                     <div id="achievement-ten-flower">
                         <h4>10 flower</h4>
@@ -165,7 +246,6 @@
     </main>
 
     <footer>
-        <button id='reset-button' onClick={resetGame()}>Reset Game</button>
     </footer>
 
     <script src="./resources/scripts/script.js"></script>

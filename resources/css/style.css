@@ -1,12 +1,13 @@
 body {
     background-color: rgb(24, 24, 24);
     color: white;
-    margin: 0;
+    overflow: hidden;
 }
 
 /* Header */
 header {
     margin: 0;
+    padding: 0;
 }
 #logo {
     height: 10rem;
@@ -16,7 +17,7 @@ header {
 /* Main */
 main {
     display: grid;
-    grid-template-columns: 2fr 3fr;
+    grid-template-columns: 2fr 3fr 3fr;
     text-align: center;
 }
 #total-carrots {
@@ -32,7 +33,26 @@ main {
     transform: translateY(.1rem);
 }
 
+.buy-container {
+    max-height: 100%;
+    max-width: 100%;
+}
 /* Store */
+.store {
+    max-height: 70%;
+    overflow: scroll;
+}
+.store .store-item .item-info {
+    position: absolute;
+    transform: translateX(3rem);
+    display: none;
+    border: 1px solid yellow;
+    background-color: black;
+    padding: 1rem;
+}
+.store .store-item div:hover div{
+    display: block;
+}
 .store ul {
     list-style-type: none;
     padding: 0;
@@ -70,7 +90,6 @@ main {
     padding: 1rem;
     text-align: center;
 }
-/* Paw store item */
 .store .store-item img {
     height: 3rem;
 }
@@ -105,9 +124,14 @@ main {
 
 
 /* ACHIEVEMENTS */
+.achievements {
+    max-width: 100%;
+    margin: 0 auto;
+}
 .achievements .achievements-display {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 .achievements .achievements-display .achievement {
     height: 8rem;
@@ -126,5 +150,9 @@ footer {
 #reset-button {
     background-color: red;
     color: white;
-    border: none;
+    border: 1px solid gold;
+    padding: 1rem;
+}
+#reset-button:hover {
+    background-color: rgb(250, 73, 73);
 }

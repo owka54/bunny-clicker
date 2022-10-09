@@ -62,6 +62,13 @@ function idleIncrement() {
     carrots += perSecond;
     allTimeCarrots += perSecond
     document.getElementById('total-carrots').innerHTML = Math.floor(carrots);
+    document.getElementsByClassName('item-info')[0].innerHTML = `${pawIdle} cps`;
+    document.getElementsByClassName('item-info')[1].innerHTML = `${hayIdle} cps`;
+    document.getElementsByClassName('item-info')[2].innerHTML = `${flowerIdle} cps`;
+    document.getElementsByClassName('item-info')[3].innerHTML = `${waterIdle} cps`;
+    document.getElementsByClassName('item-info')[4].innerHTML = `${hutchIdle} cps`;
+    document.getElementsByClassName('item-info')[5].innerHTML = `${bunnyIdle} cps`;
+    document.getElementsByClassName('item-info')[6].innerHTML = `${farmIdle} cps`;
 }
 // Calculate and display carrots per second
 function idleCarrots() {
@@ -395,7 +402,7 @@ function pawUpgrade() {
         alert('Not enough carrots!');
         return;
     }
-    pawIdle = 0.2;
+    pawIdle *= 2;
     purchasedUpgrades.push('paw-upgrade')
     idleCarrots();
 
@@ -415,7 +422,7 @@ function clickUpgrade() {
         alert('Not enough carrots!');
         return;
     }
-    perClick = 2;
+    perClick *= 2;
     purchasedUpgrades.push('click-upgrade')
 
     carrots -= 500;
@@ -428,17 +435,35 @@ function clickUpgrade() {
     document.querySelector('#click-upgrade button').style.marginBottom = '3rem'
     document.querySelector('#click-upgrade p').hidden = true
 }
-
-function hayUpgrade() {
-    if (carrots < 1000) {
+function clickUpgrade2() {
+    if (carrots < 2000) {
         alert('Not enough carrots!');
         return;
     }
-    hayIdle = 2;
+    perClick *= 2;
+    purchasedUpgrades.push('click-upgrade2')
+
+    carrots -= 2000;
+    document.getElementById('total-carrots').innerHTML = Math.floor(carrots);
+
+    document.querySelector('#click-upgrade2 button').hidden = false;
+    document.querySelector('#click-upgrade2 button').disabled = true;
+    document.querySelector('#click-upgrade2 button').style.borderColor = 'lime';
+    document.querySelector('#click-upgrade2 button').style.setProperty('background-color', 'black');
+    document.querySelector('#click-upgrade2 button').style.marginBottom = '3rem'
+    document.querySelector('#click-upgrade2 p').hidden = true
+}
+
+function hayUpgrade() {
+    if (carrots < 750) {
+        alert('Not enough carrots!');
+        return;
+    }
+    hayIdle *= 1.5;
     purchasedUpgrades.push('hay-upgrade')
     idleCarrots();
 
-    carrots -= 1000;
+    carrots -= 750;
     document.getElementById('total-carrots').innerHTML = Math.floor(carrots);
 
     document.querySelector('#hay-upgrade button').hidden = false;
@@ -449,13 +474,33 @@ function hayUpgrade() {
     document.querySelector('#hay-upgrade p').hidden = true;
 }
 
+function flowerUpgrade() {
+    if (carrots < 1250) {
+        alert('Not enough carrots!');
+        return;
+    }
+    flowerIdle *= 1.5;
+    purchasedUpgrades.push('flower-upgrade')
+    idleCarrots();
+
+    carrots -= 1250;
+    document.getElementById('total-carrots').innerHTML = Math.floor(carrots);
+
+    document.querySelector('#flower-upgrade button').hidden = false;
+    document.querySelector('#flower-upgrade button').disabled = true;
+    document.querySelector('#flower-upgrade button').style.borderColor = 'lime';
+    document.querySelector('#flower-upgrade button').style.setProperty('background-color', 'black');
+    document.querySelector('#flower-upgrade button').style.marginBottom = '3rem'
+    document.querySelector('#flower-upgrade p').hidden = true;
+}
+
 // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // 
 
 // ACHIEVEMENTS
 
 let achievementsGot = [];
 let totalAchievements = 0;
-let noOfAchievements = 5;
+let noOfAchievements = 12;
 
 
 
@@ -469,21 +514,46 @@ function achievementBonus() {
 }}
 
 // click achievements
+if (totalClicks < 1) {
+    document.getElementById('achievement-one-click').hidden = true
+}
 if (totalClicks < 100) {
     document.getElementById('achievement-onehundred-clicks').hidden = true
 }
+if (totalClicks < 1000) {
+    document.getElementById('achievement-onethousand-clicks').hidden = true
+}
+if (totalClicks < 10000) {
+    document.getElementById('achievement-tenthousand-clicks').hidden = true
+}
+
 // cps achievements
+if (perSecond < 1) {
+    document.getElementById('achievement-one-cps').hidden = true
+}
 if (perSecond < 10) {
     document.getElementById('achievement-ten-cps').hidden = true
 }
+if (perSecond < 50) {
+    document.getElementById('achievement-fifty-cps').hidden = true
+}
+if (perSecond < 100) {
+    document.getElementById('achievement-onehundred-cps').hidden = true
+}
+
 // paw achievements
+if (pawTotal < 1) {
+    document.getElementById('achievement-one-paw').hidden = true
+}
 if (pawTotal < 10) {
     document.getElementById('achievement-ten-paws').hidden = true
 }
+
 // hay achievements
 if (hayTotal < 10) {
     document.getElementById('achievement-ten-hay').hidden = true
 }
+
 // flower achievements
 if (flowerTotal < 10) {
     document.getElementById('achievement-ten-flower').hidden = true
@@ -492,6 +562,16 @@ if (flowerTotal < 10) {
 var achievemntInterval = setInterval(checkAchievements, 5000);
 function checkAchievements() {
     // click
+    if (totalClicks >= 1 && (!achievementsGot.includes('achievement-one-click'))) {
+        document.getElementById('achievement-one-click').hidden = false
+        document.getElementById('achievement-one-click').style.border = '2px solid gold'
+        document.getElementById('achievement-one-click').style.height = '8rem'
+        document.getElementById('achievement-one-click').style.width = '8rem'
+        achievementsGot.push('achievement-one-click')
+        totalAchievements += 1
+        idleCarrots()
+        alert('Achievement unlocked!\nClick 1 time.')
+    }
     if (totalClicks >= 100 && (!achievementsGot.includes('achievement-onehundred-clicks'))) {
         document.getElementById('achievement-onehundred-clicks').hidden = false
         document.getElementById('achievement-onehundred-clicks').style.border = '2px solid gold'
@@ -502,7 +582,37 @@ function checkAchievements() {
         idleCarrots()
         alert('Achievement unlocked!\nClick 100 times.')
     }
+    if (totalClicks >= 1000 && (!achievementsGot.includes('achievement-onethousand-clicks'))) {
+        document.getElementById('achievement-onethousand-clicks').hidden = false
+        document.getElementById('achievement-onethousand-clicks').style.border = '2px solid gold'
+        document.getElementById('achievement-onethousand-clicks').style.height = '8rem'
+        document.getElementById('achievement-onethousand-clicks').style.width = '8rem'
+        achievementsGot.push('achievement-onethousand-clicks')
+        totalAchievements += 1
+        idleCarrots()
+        alert('Achievement unlocked!\nClick 1000 times.')
+    }
+    if (totalClicks >= 10000 && (!achievementsGot.includes('achievement-tenthousand-clicks'))) {
+        document.getElementById('achievement-tenthousand-clicks').hidden = false
+        document.getElementById('achievement-tenthousand-clicks').style.border = '2px solid gold'
+        document.getElementById('achievement-tenthousand-clicks').style.height = '8rem'
+        document.getElementById('achievement-tenthousand-clicks').style.width = '8rem'
+        achievementsGot.push('achievement-tenthousand-clicks')
+        totalAchievements += 1
+        idleCarrots()
+        alert('Achievement unlocked!\nClick 10000 times.')
+    }
     // cps
+    if (perSecond >= 1 && (!achievementsGot.includes('achievement-one-cps'))) {
+        document.getElementById('achievement-one-cps').hidden = false
+        document.getElementById('achievement-one-cps').style.border = '2px solid gold'
+        document.getElementById('achievement-one-cps').style.height = '8rem'
+        document.getElementById('achievement-one-cps').style.width = '8rem'
+        achievementsGot.push('achievement-one-cps')
+        totalAchievements += 1
+        idleCarrots()
+        alert('Achievement unlocked!\nGet 1 carrot per second')
+    }
     if (perSecond >= 10 && (!achievementsGot.includes('achievement-ten-cps'))) {
         document.getElementById('achievement-ten-cps').hidden = false
         document.getElementById('achievement-ten-cps').style.border = '2px solid gold'
@@ -513,7 +623,37 @@ function checkAchievements() {
         idleCarrots()
         alert('Achievement unlocked!\nGet 10 carrots per second')
     }
+    if (perSecond >= 50 && (!achievementsGot.includes('achievement-fifty-cps'))) {
+        document.getElementById('achievement-fifty-cps').hidden = false
+        document.getElementById('achievement-fifty-cps').style.border = '2px solid gold'
+        document.getElementById('achievement-fifty-cps').style.height = '8rem'
+        document.getElementById('achievement-fifty-cps').style.width = '8rem'
+        achievementsGot.push('achievement-fifty-cps')
+        totalAchievements += 1
+        idleCarrots()
+        alert('Achievement unlocked!\nGet 50 carrots per second')
+    }
+    if (perSecond >= 100 && (!achievementsGot.includes('achievement-onehundred-cps'))) {
+        document.getElementById('achievement-onehundred-cps').hidden = false
+        document.getElementById('achievement-onehundred-cps').style.border = '2px solid gold'
+        document.getElementById('achievement-onehundred-cps').style.height = '8rem'
+        document.getElementById('achievement-onehundred-cps').style.width = '8rem'
+        achievementsGot.push('achievement-onehundred-cps')
+        totalAchievements += 1
+        idleCarrots()
+        alert('Achievement unlocked!\nGet 100 carrots per second')
+    }
     // paw
+    if (pawTotal >= 1 && (!achievementsGot.includes('achievement-one-paw'))) {
+        document.getElementById('achievement-one-paw').hidden = false
+        document.getElementById('achievement-one-paw').style.border = '2px solid gold'
+        document.getElementById('achievement-one-paw').style.height = '8rem'
+        document.getElementById('achievement-one-paw').style.width = '8rem'
+        achievementsGot.push('achievement-one-paw')
+        totalAchievements += 1
+        idleCarrots()
+        alert('Achievement unlocked!\nHave 1 paw')
+    }
     if (pawTotal >= 10 && (!achievementsGot.includes('achievement-ten-paws'))) {
         document.getElementById('achievement-ten-paws').hidden = false
         document.getElementById('achievement-ten-paws').style.border = '2px solid gold'
@@ -546,7 +686,5 @@ function checkAchievements() {
         idleCarrots()
         alert('Achievement unlocked!\nHave 10 flower')
     }
-
     document.querySelector('.achievements h2').innerHTML = `Acievements (${totalAchievements} / ${noOfAchievements})`;
-
 }
