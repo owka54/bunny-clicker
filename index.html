@@ -11,7 +11,8 @@
 <body>
     <header>
         <!-- <img id='logo' src="./resources/images/logo.png" alt="bunny with carrot"> -->
-        <button id='reset-button' onClick={resetGame()}>Reset Game</button>
+        <!-- <h1>Bunny Clicker</h1> -->
+        <button id='reset-button' onClick={resetGame()}>RESET GAME</button>
     </header>
 
     <main>
@@ -20,145 +21,6 @@
             <div id="idle-carrots"></div>
             <!-- "https://www.flaticon.com/free-icons/carrot" created by Freepik - Flaticon -->
             <img id='main-carrot' src="./resources/images/carrot.png" alt="A carrot" onclick={carrotClick()}>   
-        </div>
-
-        <div class="buy-container">
-            <div class="store">
-                <h2>Store</h2>
-                <ul>
-                    <div class="store-item">
-                        <li id="paw">
-                            <p id="paw-total"></p>
-                            <div>
-                                <div class="item-info"></div>
-                                <img src="./resources/images/paw.png" alt="Bunny paw">
-                            </div>
-                            <h3>Bunny Paw</h3>
-                            <p class="cost">Cost: <span id="paw-cost">10</span></p>
-                            <button onclick={pawBuy()}>Buy 1</button> 
-                        </li>
-                    </div>
-
-                    <div class="store-item">
-                        <li id="hay">
-                            <p id="hay-total"></p>
-                            <div>
-                                <div class="item-info"></div>
-                                <img src="./resources/images/hay-roll.png" alt="Hay roll">
-                            </div>
-                            <h3>Hay</h3>
-                            <p class ='cost'>Cost: <span id="hay-cost">100</span></p>
-                            <button onClick={hayBuy()}>Buy 1</button>
-                        </li>
-                    </div>
-
-                    <div class="store-item">
-                        <li id="flower">
-                            <p id="flower-total"></p>
-                            <div>
-                                <div class="item-info"></div>
-                                <img src="./resources/images/rose.png" alt="Rose">
-                            </div>
-                            <h3>Flower</h3>
-                            <p class ='cost'>Cost: <span id="flower-cost">500</span></p>
-                            <button onClick={flowerBuy()}>Buy 1</button>
-                        </li>
-                    </div>
-                    
-                    <div class="store-item">
-                        <li id="water">
-                            <p id="water-total"></p>
-                            <div>
-                                <div class="item-info"></div>
-                                <img src="./resources/images/drink-bottle.png" alt="Water bottle">
-                            </div>
-                            <h3>Water</h3>
-                            <p class ='cost'>Cost: <span id="water-cost">1000</span></p>
-                            <button onClick={waterBuy()}>Buy 1</button>
-                        </li>
-                    </div>
-                    
-                    <div class="store-item">
-                        <li id="hutch">
-                            <p id="hutch-total"></p>
-                            <div>
-                                <div class="item-info"></div>
-                                <img src="./resources/images/rabbit-hutch.png" alt="Rabbit hutch">
-                            </div>
-                            <h3>Hutch</h3>
-                            <p class ='cost'>Cost: <span id="hutch-cost">2500</span></p>
-                            <button onClick={hutchBuy()}>Buy 1</button>
-                        </li>
-                    </div>
-
-                    <div class="store-item">
-                        <li id="bunny">
-                            <p id="bunny-total"></p>
-                            <div>
-                                <div class="item-info"></div>
-                                <img src="./resources/images/bunny.png" alt="Bunny with carrot">
-                            </div>
-                            <h3>Bunny</h3>
-                            <p class="cost">Cost: <span id="bunny-cost">5000</span></p>
-                            <button onclick={bunnyBuy()}>Buy 1</button>
-                        </li>
-                    </div>
-                    
-                    <div class="store-item">
-                        <li id="farm">
-                            <p id="farm-total"></p>
-                            <div>
-                                <div class="item-info"></div>
-                                <img src="./resources/images/farm.png" alt="Farm">
-                            </div>
-                            <h3>Farm</h3>
-                            <p class="cost">Cost: <span id="farm-cost">10000</span></p>
-                            <button onclick={farmBuy()}>Buy 1</button>
-                        </li>
-                    </div>
-                </ul>
-            </div>
-
-            <div class="upgrades-store">
-                <h2>Upgrades</h2>
-                <div class="upgrades">
-
-                    <div class="upgrade">
-                        <div id="paw-upgrade">
-                            <button  onclick={pawUpgrade()}>Paw x2</button>
-                            <p>Cost: 100</p>
-                        </div>
-                    </div>
-
-                    <div class="upgrade">
-                        <div id="click-upgrade">
-                            <button onclick={clickUpgrade()}>Click x2</button>
-                            <p>Cost: 500</p>
-                        </div>
-                    </div>
-                    <div class="upgrade">
-                        <div id="click-upgrade2">
-                            <button onclick={clickUpgrade2()}>Click x2</button>
-                            <p>Cost:2000</p>
-                        </div>
-                    </div>
-
-                    <div class="upgrade">
-                        <div id="hay-upgrade">
-                            <button onclick={hayUpgrade()}>Hay x1.5</button>
-                            <p>Cost: 750</p>
-                        </div>
-                    </div>
-
-                    <div class="upgrade">
-                        <div id="flower-upgrade">
-                            <button onclick={flowerUpgrade()}>Flower x1.5</button>
-                            <p>Cost:1250</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
         </div>
 
         <div class="achievements">
@@ -227,6 +89,24 @@
                         <p>Have 10 paws</p>
                     </div>
                 </div>
+                <div class="achievement">
+                    <div id="achievement-twentyfive-paws">
+                        <h4>25 Paws</h4>
+                        <p>Have 25 paws</p>
+                    </div>
+                </div>
+                <div class="achievement">
+                    <div id="achievement-fifty-paws">
+                        <h4>50 Paws</h4>
+                        <p>Have 50 paws</p>
+                    </div>
+                </div>
+                <div class="achievement">
+                    <div id="achievement-onehundred-paws">
+                        <h4>100 Paws</h4>
+                        <p>Have 100 paws</p>
+                    </div>
+                </div>
 
                 <div class="achievement">
                     <div id="achievement-ten-hay">
@@ -234,15 +114,209 @@
                         <p>Have 10 hay</p>
                     </div>
                 </div>
+                <div class="achievement">
+                    <div id="achievement-twentyfive-hay">
+                        <h4>25 Hay</h4>
+                        <p>Have 25 hay</p>
+                    </div>
+                </div>
 
                 <div class="achievement">
                     <div id="achievement-ten-flower">
-                        <h4>10 flower</h4>
-                        <p>Have 10 flower</p>
+                        <h4>10 flowers</h4>
+                        <p>Have 10 flowers</p>
+                    </div>
+                </div>
+                <div class="achievement">
+                    <div id="achievement-twentyfive-flower">
+                        <h4>25 flowers</h4>
+                        <p>Have 25 flowers</p>
+                    </div>
+                </div>
+
+                <div class="achievement">
+                    <div id="achievement-ten-water">
+                        <h4>10 waters</h4>
+                        <p>Have 10 water</p>
+                    </div>
+                </div>
+
+                <div class="achievement">
+                    <div id="achievement-ten-hutch">
+                        <h4>10 hutches</h4>
+                        <p>Have 10 hutches</p>
+                    </div>
+                </div>
+
+                <div class="achievement">
+                    <div id="achievement-ten-bunny">
+                        <h4>10 bunnies</h4>
+                        <p>Have 10 bunnies</p>
+                    </div>
+                </div>
+
+                <div class="achievement">
+                    <div id="achievement-ten-farm">
+                        <h4>10 farms</h4>
+                        <p>Have 10 farms</p>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="buy-container">
+            <div class="store">
+                <h2>Store</h2>
+                <ul>
+                    <div class="store-item">
+                        <li id="paw">
+                            <p id="paw-total"></p>
+                            <div>
+                                <div class="item-info"></div>
+                                <img src="./resources/images/paw.png" alt="Bunny paw">
+                            </div>
+                            <h3>Bunny Paw</h3>
+                            <p class="cost">Cost: <span id="paw-cost">10</span></p>
+                            <button value='paw' class='buy-button' onclick={storeItemBuy(value)}>Buy 1</button> 
+                            <button value='paw' class='sell-button' onclick={storeItemSell(value)}>Sell 1</button> 
+                        </li>
+                    </div>
+
+                    <div class="store-item">
+                        <li id="hay">
+                            <p id="hay-total"></p>
+                            <div>
+                                <div class="item-info"></div>
+                                <img src="./resources/images/hay-roll.png" alt="Hay roll">
+                            </div>
+                            <h3>Hay</h3>
+                            <p class ='cost'>Cost: <span id="hay-cost">100</span></p>
+                            <button value='hay' class='buy-button' onclick={storeItemBuy(value)}>Buy 1</button> 
+                            <button value='hay' class='sell-button' onclick={storeItemSell(value)}>Sell 1</button>  
+                        </li>
+                    </div>
+
+                    <div class="store-item">
+                        <li id="flower">
+                            <p id="flower-total"></p>
+                            <div>
+                                <div class="item-info"></div>
+                                <img src="./resources/images/rose.png" alt="Rose">
+                            </div>
+                            <h3>Flower</h3>
+                            <p class ='cost'>Cost: <span id="flower-cost">500</span></p>
+                            <button value='flower' class='buy-button' onclick={storeItemBuy(value)}>Buy 1</button> 
+                            <button value='flower' class='sell-button' onclick={storeItemSell(value)}>Sell 1</button> 
+                        </li>
+                    </div>
+                    
+                    <div class="store-item">
+                        <li id="water">
+                            <p id="water-total"></p>
+                            <div>
+                                <div class="item-info"></div>
+                                <img src="./resources/images/drink-bottle.png" alt="Water bottle">
+                            </div>
+                            <h3>Water</h3>
+                            <p class ='cost'>Cost: <span id="water-cost">1000</span></p>
+                            <button value='water' class='buy-button' onclick={storeItemBuy(value)}>Buy 1</button> 
+                            <button value='water' class='sell-button' onclick={storeItemSell(value)}>Sell 1</button> 
+                        </li>
+                    </div>
+                    
+                    <div class="store-item">
+                        <li id="hutch">
+                            <p id="hutch-total"></p>
+                            <div>
+                                <div class="item-info"></div>
+                                <img src="./resources/images/rabbit-hutch.png" alt="Rabbit hutch">
+                            </div>
+                            <h3>Hutch</h3>
+                            <p class ='cost'>Cost: <span id="hutch-cost">2500</span></p>
+                            <button value='hutch' class='buy-button' onclick={storeItemBuy(value)}>Buy 1</button> 
+                            <button value='hutch' class='sell-button' onclick={storeItemSell(value)}>Sell 1</button>  
+                        </li>
+                    </div>
+
+                    <div class="store-item">
+                        <li id="bunny">
+                            <p id="bunny-total"></p>
+                            <div>
+                                <div class="item-info"></div>
+                                <img src="./resources/images/bunny.png" alt="Bunny with carrot">
+                            </div>
+                            <h3>Bunny</h3>
+                            <p class="cost">Cost: <span id="bunny-cost">5000</span></p>
+                            <button value='bunny' class='buy-button' onclick={storeItemBuy(value)}>Buy 1</button> 
+                            <button value='bunny' class='sell-button' onclick={storeItemSell(value)}>Sell 1</button>  
+                        </li>
+                    </div>
+                    
+                    <div class="store-item">
+                        <li id="farm">
+                            <p id="farm-total"></p>
+                            <div>
+                                <div class="item-info"></div>
+                                <img src="./resources/images/farm.png" alt="Farm">
+                            </div>
+                            <h3>Farm</h3>
+                            <p class="cost">Cost: <span id="farm-cost">10000</span></p>
+                            <button value='farm' class='buy-button' onclick={storeItemBuy(value)}>Buy 1</button> 
+                            <button value='farm' class='sell-button' onclick={storeItemSell(value)}>Sell 1</button> 
+                        </li>
+                    </div>
+                </ul>
+            </div>
+
+            <div class="upgrades-store">
+                <h2>Upgrades</h2>
+                <div class="upgrades">
+
+                    <div class="upgrade">
+                        <div id="paw-upgrade">
+                            <button  onclick={pawUpgrade()}>Paw x2</button>
+                            <p>Cost: 100</p>
+                        </div>
+                    </div>
+                    <div class="upgrade">
+                        <div id="paw-upgrade2">
+                            <button  onclick={pawUpgrade2()}>Paw x2</button>
+                            <p>Cost: 500</p>
+                        </div>
+                    </div>
+
+                    <div class="upgrade">
+                        <div id="click-upgrade">
+                            <button onclick={clickUpgrade()}>Click x2</button>
+                            <p>Cost: 500</p>
+                        </div>
+                    </div>
+                    <div class="upgrade">
+                        <div id="click-upgrade2">
+                            <button onclick={clickUpgrade2()}>Click x2</button>
+                            <p>Cost:2000</p>
+                        </div>
+                    </div>
+
+                    <div class="upgrade">
+                        <div id="hay-upgrade">
+                            <button onclick={hayUpgrade()}>Hay x1.5</button>
+                            <p>Cost: 750</p>
+                        </div>
+                    </div>
+
+                    <div class="upgrade">
+                        <div id="flower-upgrade">
+                            <button onclick={flowerUpgrade()}>Flower x1.5</button>
+                            <p>Cost:1250</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        
     </main>
 
     <footer>
