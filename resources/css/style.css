@@ -28,7 +28,7 @@ header {
 /* Main */
 main {
     display: grid;
-    grid-template-columns: 2fr 3fr 3fr;
+    grid-template-columns: 2fr 3fr;
     text-align: center;
 }
 #total-carrots {
@@ -126,6 +126,7 @@ main {
 }
 .upgrades-store .upgrade {
     width: 4rem;
+    margin: 1rem;
 }
 .upgrades-store button {
     height: 4rem;
@@ -136,9 +137,6 @@ main {
 }
 .upgrades-store button:hover {
     background-color: grey;
-}
-.upgrades-store .upgrade {
-    margin: 1rem;
 }
 
 .display-buttons {
@@ -167,6 +165,11 @@ main {
     text-decoration: underline;
 }
 
+.wrapper {
+    display: flex;
+    height: 100%;
+}
+
 
 ::-webkit-scrollbar {
     width: .5rem;
@@ -179,4 +182,78 @@ main {
 }
 ::-webkit-scrollbar-thumb:hover {
     background: rgb(219, 165, 95);
+}
+
+@media only screen and (max-width: 1680px) {
+    .wrapper {
+        max-height: 70%;
+    }
+}
+
+@media only screen and (max-width: 1500px) {
+    main {
+        display: block;
+    }
+    body {
+        overflow: scroll;
+    }
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+        max-width: 100%;
+        align-items: center;
+    }
+    .achievements {
+        /* display: none; */
+        order: 1;
+        width: 80%;
+        margin-top: 1rem;
+    }
+    .buy-container {
+        width: 80%;
+    }
+
+}
+
+@media only screen and (max-width: 740px) {
+    .upgrades-store {
+        font-size: .75rem;
+    }
+    .upgrades-store .upgrades {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .upgrades-store .upgrade {
+        width: 4rem;
+        margin: 1rem;
+    }
+    .upgrades-store button {
+        height: 3rem;
+        width: 3rem;
+        font-size: .5rem;
+    }
+
+    .store .store-item {
+        width: 100%;
+        font-size: .75rem;
+        padding: .5rem;
+    }
+    .store .store-item h3 {
+        font-size: .75rem;
+    }
+    .store .store-item img {
+        height: 2rem
+    }
+    .store .store-item p {
+        margin: .5rem;
+    }
+    .store .store-item button {
+        font-size: .75rem;
+    }
+
+    .achievements {
+        max-height: 50rem;
+        overflow-y: scroll;
+        margin-bottom: 3rem;
+    }
 }

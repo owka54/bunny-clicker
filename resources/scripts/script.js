@@ -1,7 +1,7 @@
 // Variables //
 
 let player = {
-    carrots: 202,
+    carrots: 0,
     allTimeCarrots: 0,
 
     totalClicks: 0,
@@ -200,6 +200,11 @@ function displayStore() {
                 sum += p;
             }
             document.getElementById(`${item}-cost`).innerHTML = sum.toFixed(1);
+            document.getElementById(`${item}-total`).innerHTML = `x${storeItems[item].total}`;
+        }
+    } else {
+        for (let item of items) {
+            document.getElementById(`${item}-cost`).innerHTML = storeItems[item].cost;
             document.getElementById(`${item}-total`).innerHTML = `x${storeItems[item].total}`;
         }
     }
