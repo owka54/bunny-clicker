@@ -58,7 +58,7 @@ let storeItems = {
 }
 
 noOfAchievements = 21;
-noOfUpgrades = 6;
+noOfUpgrades = 11;
 // // // // // // // // // //
 
 
@@ -324,14 +324,14 @@ function pawUpgrade2() {
 }
 
 function clickUpgrade() {
-    if (player.carrots < 500) {
+    if (player.carrots < 100) {
         alert('Not enough carrots!');
         return;
     }
     player.perClick *= 2;
     player.purchasedUpgrades.push('click-upgrade')
 
-    player.carrots -= 500;
+    player.carrots -= 100;
     document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
 
     document.querySelector('#click-upgrade button').hidden = false;
@@ -342,14 +342,32 @@ function clickUpgrade() {
     document.querySelector('#click-upgrade p').hidden = true
 }
 function clickUpgrade2() {
-    if (player.carrots < 2000) {
+    if (player.carrots < 750) {
         alert('Not enough carrots!');
         return;
     }
     player.perClick *= 2;
     player.purchasedUpgrades.push('click-upgrade2')
 
-    player.carrots -= 2000;
+    player.carrots -= 750;
+    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+
+    document.querySelector('#click-upgrade2 button').hidden = false;
+    document.querySelector('#click-upgrade2 button').disabled = true;
+    document.querySelector('#click-upgrade2 button').style.borderColor = 'lime';
+    document.querySelector('#click-upgrade2 button').style.setProperty('background-color', 'black');
+    document.querySelector('#click-upgrade2 button').style.marginBottom = '3rem'
+    document.querySelector('#click-upgrade2 p').hidden = true
+}
+function clickUpgrade3() {
+    if (player.carrots < 1500) {
+        alert('Not enough carrots!');
+        return;
+    }
+    player.perClick *= 2;
+    player.purchasedUpgrades.push('click-upgrade2')
+
+    player.carrots -= 1500;
     document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
 
     document.querySelector('#click-upgrade2 button').hidden = false;
@@ -399,6 +417,87 @@ function flowerUpgrade() {
     document.querySelector('#flower-upgrade button').style.marginBottom = '3rem'
     document.querySelector('#flower-upgrade p').hidden = true;
 }
+
+function waterUpgrade() {
+    if (player.carrots < 2500) {
+        alert('Not enough carrots!');
+        return;
+    }
+    storeItems.water.idle *= 2;
+    player.purchasedUpgrades.push('water-upgrade')
+    idleCarrots();
+
+    player.carrots -= 2500;
+    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+
+    document.querySelector('#water-upgrade button').hidden = false;
+    document.querySelector('#water-upgrade button').disabled = true;
+    document.querySelector('#water-upgrade button').style.borderColor = 'lime';
+    document.querySelector('#water-upgrade button').style.setProperty('background-color', 'black');
+    document.querySelector('#water-upgrade button').style.marginBottom = '3rem'
+    document.querySelector('#water-upgrade p').hidden = true;
+}
+
+function hutchUpgrade() {
+    if (player.carrots < 4000) {
+        alert('Not enough carrots!');
+        return;
+    }
+    storeItems.hutch.idle *= 2;
+    player.purchasedUpgrades.push('hutch-upgrade')
+    idleCarrots();
+
+    player.carrots -= 4000;
+    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+
+    document.querySelector('#hutch-upgrade button').hidden = false;
+    document.querySelector('#hutch-upgrade button').disabled = true;
+    document.querySelector('#hutch-upgrade button').style.borderColor = 'lime';
+    document.querySelector('#hutch-upgrade button').style.setProperty('background-color', 'black');
+    document.querySelector('#hutch-upgrade button').style.marginBottom = '3rem'
+    document.querySelector('#hutch-upgrade p').hidden = true;
+}
+
+function bunnyUpgrade() {
+    if (player.carrots < 8000) {
+        alert('Not enough carrots!');
+        return;
+    }
+    storeItems.bunny.idle *= 1.5;
+    player.purchasedUpgrades.push('bunny-upgrade')
+    idleCarrots();
+
+    player.carrots -= 8000;
+    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+
+    document.querySelector('#bunny-upgrade button').hidden = false;
+    document.querySelector('#bunny-upgrade button').disabled = true;
+    document.querySelector('#bunny-upgrade button').style.borderColor = 'lime';
+    document.querySelector('#bunny-upgrade button').style.setProperty('background-color', 'black');
+    document.querySelector('#bunny-upgrade button').style.marginBottom = '3rem'
+    document.querySelector('#bunny-upgrade p').hidden = true;
+}
+
+function farmUpgrade() {
+    if (player.carrots < 15000) {
+        alert('Not enough carrots!');
+        return;
+    }
+    storeItems.farm.idle *= 1.5;
+    player.purchasedUpgrades.push('farm-upgrade')
+    idleCarrots();
+
+    player.carrots -= 15000;
+    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+
+    document.querySelector('#farm-upgrade button').hidden = false;
+    document.querySelector('#farm-upgrade button').disabled = true;
+    document.querySelector('#farm-upgrade button').style.borderColor = 'lime';
+    document.querySelector('#farm-upgrade button').style.setProperty('background-color', 'black');
+    document.querySelector('#farm-upgrade button').style.marginBottom = '3rem'
+    document.querySelector('#farm-upgrade p').hidden = true;
+}
+
 
 // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // 
 
