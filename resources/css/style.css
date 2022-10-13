@@ -1,3 +1,8 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     background-color: rgb(24, 24, 24);
     color: white;
@@ -54,6 +59,17 @@ main {
     max-height: 70%;
     overflow: scroll;
     overflow-x: hidden;
+}
+.store .buy-multipliers button {
+    background-color: burlywood;
+    border-radius: 1rem;
+    width: 5rem;
+    padding: .5rem;
+    margin: .75rem;
+    font-weight: bold;
+}
+.store .buy-multipliers button:hover {
+    background-color: rgb(246, 153, 31);
 }
 .store .store-item .item-info {
     position: absolute;
@@ -255,5 +271,9 @@ main {
         max-height: 50rem;
         overflow-y: scroll;
         margin-bottom: 3rem;
+    }
+
+    #main-carrot {
+        height: 15rem;
     }
 }
