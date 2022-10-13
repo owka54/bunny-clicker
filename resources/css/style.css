@@ -15,6 +15,16 @@ header {
     padding: 0;
     text-align: right;
 }
+#save-button {
+    background-color: green;
+    color: white;
+    border: 1px solid gold;
+    padding: 1rem;
+    display: inline-block;
+}
+#save-button:hover {
+    background-color: rgb(48, 161, 48);
+}
 #reset-button {
     background-color: red;
     color: white;
