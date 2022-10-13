@@ -60,7 +60,7 @@ main {
 }
 
 .buy-container {
-    max-height: 75%;
+    max-height: 70%;
     max-width: 100%;
     border: 3px solid burlywood;
 }
@@ -143,6 +143,8 @@ main {
     text-align: center;
     margin: 0 auto;
     border-top: 3px solid burlywood;
+    overflow-y: scroll;
+    height: 15rem
 }
 .upgrades-store .upgrades {
     display: flex;
@@ -173,20 +175,25 @@ main {
 /* ACHIEVEMENTS */
 .achievements {
     max-width: 100%;
-    max-height: 75%;
+    max-height: 70%;
     margin: 0 1rem;
     border: 3px solid burlywood;
-    /* display: none; */
+    overflow-y: scroll;
 }
 .achievements .achievements-display {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    padding: .5rem;
 }
 .achievements .achievements-display .achievement {
     height: 8rem;
     width: 8rem;
+    padding: .5rem;
     /* border: 2px solid gold; */
+}
+.achievements .achievements-display .achievement div p {
+    margin: 1rem;
 }
 .achievements .achievements-display .achievement h4 {
     text-decoration: underline;
@@ -194,7 +201,7 @@ main {
 
 .wrapper {
     display: flex;
-    height: 100%;
+    max-height: 100%;
 }
 
 
@@ -213,7 +220,16 @@ main {
 
 @media only screen and (max-width: 1680px) {
     .wrapper {
-        max-height: 70%;
+        max-height: 100%;
+    }
+
+}
+@media only screen and (max-width: 1671px) {
+    .wrapper {
+        max-height: 100%;
+    }
+    .achievements, .buy-container {
+        height: 48%;
     }
 }
 
@@ -287,4 +303,5 @@ main {
     #main-carrot {
         height: 15rem;
     }
+
 }
