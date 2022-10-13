@@ -365,17 +365,17 @@ function clickUpgrade3() {
         return;
     }
     player.perClick *= 2;
-    player.purchasedUpgrades.push('click-upgrade2')
+    player.purchasedUpgrades.push('click-upgrade3')
 
     player.carrots -= 1500;
     document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
 
-    document.querySelector('#click-upgrade2 button').hidden = false;
-    document.querySelector('#click-upgrade2 button').disabled = true;
-    document.querySelector('#click-upgrade2 button').style.borderColor = 'lime';
-    document.querySelector('#click-upgrade2 button').style.setProperty('background-color', 'black');
-    document.querySelector('#click-upgrade2 button').style.marginBottom = '3rem'
-    document.querySelector('#click-upgrade2 p').hidden = true
+    document.querySelector('#click-upgrade3 button').hidden = false;
+    document.querySelector('#click-upgrade3 button').disabled = true;
+    document.querySelector('#click-upgrade3 button').style.borderColor = 'lime';
+    document.querySelector('#click-upgrade3 button').style.setProperty('background-color', 'black');
+    document.querySelector('#click-upgrade3 button').style.marginBottom = '3rem'
+    document.querySelector('#click-upgrade3 p').hidden = true
 }
 
 function hayUpgrade() {
