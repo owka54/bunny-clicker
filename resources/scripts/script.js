@@ -57,7 +57,7 @@ let storeItems = {
     }
 }
 
-noOfAchievements = 21;
+noOfAchievements = 23;
 noOfUpgrades = 11;
 // // // // // // // // // //
 
@@ -540,6 +540,12 @@ if (player.perSecond < 50) {
 if (player.perSecond < 100) {
     document.getElementById('achievement-onehundred-cps').hidden = true
 }
+if (player.perSecond < 1000) {
+    document.getElementById('achievement-onethousand-cps').hidden = true
+}
+if (player.perSecond < 10000) {
+    document.getElementById('achievement-tenthousand-cps').hidden = true
+}
 
 // paw achievements
 if (storeItems.paw.total < 1) {
@@ -667,6 +673,24 @@ function checkAchievements() {
         document.getElementById('achievement-onehundred-cps').style.height = '8rem'
         document.getElementById('achievement-onehundred-cps').style.width = '8rem'
         player.achievementsGot.push('achievement-onehundred-cps')
+        player.totalAchievements += 1
+        idleCarrots()
+    }
+    if (player.perSecond >= 1000 && (!player.achievementsGot.includes('achievement-onethousand-cps'))) {
+        document.getElementById('achievement-onethousand-cps').hidden = false
+        document.getElementById('achievement-onethousand-cps').style.border = '2px solid gold'
+        document.getElementById('achievement-onethousand-cps').style.height = '8rem'
+        document.getElementById('achievement-onethousand-cps').style.width = '8rem'
+        player.achievementsGot.push('achievement-onethousand-cps')
+        player.totalAchievements += 1
+        idleCarrots()
+    }
+    if (player.perSecond >= 10000 && (!player.achievementsGot.includes('achievement-tenthousand-cps'))) {
+        document.getElementById('achievement-tenthousand-cps').hidden = false
+        document.getElementById('achievement-tenthousand-cps').style.border = '2px solid gold'
+        document.getElementById('achievement-tenthousand-cps').style.height = '8rem'
+        document.getElementById('achievement-tenthousand-cps').style.width = '8rem'
+        player.achievementsGot.push('achievement-tenthousand-cps')
         player.totalAchievements += 1
         idleCarrots()
     }
