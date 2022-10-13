@@ -45,7 +45,7 @@ main {
 }
 
 .buy-container {
-    max-height: 80%;
+    max-height: 75%;
     max-width: 100%;
     border: 3px solid burlywood;
 }
@@ -141,13 +141,17 @@ main {
     margin: 1rem;
 }
 
+.display-buttons {
+    display: none;
+}
 
 /* ACHIEVEMENTS */
 .achievements {
     max-width: 100%;
-    max-height: 80%;
+    max-height: 75%;
     margin: 0 1rem;
     border: 3px solid burlywood;
+    /* display: none; */
 }
 .achievements .achievements-display {
     display: flex;

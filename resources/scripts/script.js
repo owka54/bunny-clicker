@@ -1,7 +1,7 @@
 // Variables //
 
 let player = {
-    carrots: 0,
+    carrots: 202,
     allTimeCarrots: 0,
 
     totalClicks: 0,
@@ -16,8 +16,7 @@ let player = {
 }
 
 let game = {
-    noOfAchievements: 21,
-    noOfUpgrades: 6,
+    storeMultiple: 1,
 }
 
 let storeItems = {
@@ -57,6 +56,9 @@ let storeItems = {
         idle: 100
     }
 }
+
+noOfAchievements = 21;
+noOfUpgrades = 6;
 // // // // // // // // // //
 
 
@@ -70,7 +72,6 @@ function carrotClick() {
 
 // Invoke idleIncrement every second
 var interval = setInterval(idleIncrement, 1000);
-
 // Increment carrot count by idle amount
 function idleIncrement() {
     player.carrots += player.perSecond;
@@ -163,7 +164,7 @@ window.onload = function() {
         document.querySelector(`#${player.purchasedUpgrades[upgrade]} p`).hidden = true
     }
 
-    document.querySelector('.achievements h2').innerHTML = `Acievements (${player.totalAchievements} / ${game.noOfAchievements})`;
+    document.querySelector('.achievements h2').innerHTML = `Acievements (${player.totalAchievements} / ${noOfAchievements})`;
     
 }
 
@@ -177,40 +178,83 @@ function resetGame() {
     }}
 }
 
-
 // STORE //
+function storeMultiple(value) {
+    game.storeMultiple = value;
+    displayStore();
+}
+
+function displayStore() {
+    const items = ['paw', 'hay', 'flower', 'water', 'hutch', 'bunny', 'farm'];
+    // If not buying 1
+    if (game.storeMultiple !== 1) {
+        for (let item of items) {
+            // set p to initial price
+            let p = storeItems[item].cost;
+            let sum = p;
+            
+            for (let n = 1; n < game.storeMultiple; n++) {
+                // set p to new price
+                p = Number((p * 1.15).toFixed(1));
+                // add to sum
+                sum += p;
+            }
+            document.getElementById(`${item}-cost`).innerHTML = sum.toFixed(1);
+            document.getElementById(`${item}-total`).innerHTML = `x${storeItems[item].total}`;
+        }
+    }
+
+    const buyButtons = document.querySelectorAll('.buy-button');
+    buyButtons.forEach(button => {
+        button.innerHTML = `Buy ${game.storeMultiple}`
+    })
+    const sellButtons = document.querySelectorAll('.sell-button');
+    sellButtons.forEach(button => {
+        button.innerHTML = `Sell ${game.storeMultiple}`
+    })
+}
+
 function storeItemBuy(item) {
     const storeItem = storeItems[item];
+    // (storeItem.cost * game.storeMultiple)
 
-    if (player.carrots < storeItem.cost) {
-        // alert('Not enough carrots!');
+    if (player.carrots < document.getElementById(`${item}-cost`).innerHTML) {
+        alert('Not enough carrots!');
         return;
     }
-    storeItem.total += 1;
-    player.carrots -= storeItem.cost;
-    document.getElementById(`${item}-total`).innerHTML = `x${storeItem.total}`;
-    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots)
+    storeItem.total += Number(game.storeMultiple);
+    player.carrots -= document.getElementById(`${item}-cost`).innerHTML;
+    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
 
-    storeItem.cost *= 1.15;
-    console.log(storeItem.cost)
-    document.getElementById(`${item}-cost`).innerHTML = storeItem.cost.toFixed(1);
-
+    if (game.storeMultiple !== 1) {
+        let cost = storeItem.cost;
+        for (let n = 1; n <= game.storeMultiple; n++) {
+            cost *= 1.15;
+        }
+        storeItem.cost = cost;
+    } else {
+        storeItem.cost *= 1.15;
+    }
+    
+    displayStore();
     idleCarrots();
 }
 function storeItemSell(item) {
     const storeItem = storeItems[item];
 
-    if (storeItem.total === 0) {
+    if (storeItem.total - Number(game.storeMultiple) < 0) {
+        console.log('Not enough items to sell')
         return;
     }
-    storeItem.total -= 1;
-    player.carrots += (storeItem.cost / 4);
-    document.getElementById(`${item}-total`).innerHTML = `x${storeItem.total}`;
+    storeItem.total -= Number(game.storeMultiple);
+    player.carrots += ((storeItem.cost / 4) * game.storeMultiple);
+    // document.getElementById(`${item}-total`).innerHTML = `x${storeItem.total * game.storeMultiple}`;
     document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots)
 
-    storeItem.cost *= 0.87;
-    document.getElementById(`${item}-cost`).innerHTML = storeItem.cost.toFixed(1);
+    storeItem.cost *= (0.87 * game.storeMultiple);
+    // document.getElementById(`${item}-cost`).innerHTML = (storeItem.cost * game.storeMultiple).toFixed(1);
 
+    displayStore();
     idleCarrots();
 }
 
@@ -647,6 +691,5 @@ function checkAchievements() {
         idleCarrots()
     }
 
-
-    document.querySelector('.achievements h2').innerHTML = `Acievements (${player.totalAchievements} / ${game.noOfAchievements})`;
+    document.querySelector('.achievements h2').innerHTML = `Acievements (${player.totalAchievements} / ${noOfAchievements})`;
 }

@@ -23,6 +23,13 @@
             <img id='main-carrot' src="./resources/images/carrot.png" alt="A carrot" onclick={carrotClick()}>   
         </div>
 
+        <div class="display-buttons">
+            <button onClick={}>Achievements</button>
+            <button>Stats</button>
+            <button>Store</button>
+            <button>Upgrades</button>
+        </div>
+
         <div class="achievements">
             <h2>Achievements</h2>
             <p></p>
@@ -167,6 +174,11 @@
         <div class="buy-container">
             <div class="store">
                 <h2>Store</h2>
+                <div class="buy-multipliers">
+                    <button value=1 onclick={storeMultiple(value)}>x1</button>
+                    <button value=10 onclick={storeMultiple(value)}>x10</button>
+                    <button value=100 onclick={storeMultiple(value)}>x100</button>
+                </div>
                 <ul>
                     <div class="store-item">
                         <li id="paw">
