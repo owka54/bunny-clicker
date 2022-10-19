@@ -3,20 +3,24 @@
 let player = {
     carrots: 0,
     allTimeCarrots: 0,
+    prestigeLevelCarrots: 0,
 
     totalClicks: 0,
     perClick: 1,
-
     perSecond: 0,
+    totalRocketBunnyClicks: 0,
 
     achievementsGot: [],
     totalAchievements: 0,
     
     purchasedUpgrades: [],
+
+    prestige: 0,
 }
 
 let game = {
     storeMultiple: 1,
+    prestigeCost: 1000000,
 }
 
 let storeItems = {
@@ -57,15 +61,19 @@ let storeItems = {
     }
 }
 
-noOfAchievements = 30;
+noOfAchievements = 34;
 noOfUpgrades = 21;
 // // // // // // // // // //
+
+const prestigeButton = document.getElementById('prestige-button');
+
 
 
 // Increment carrots every click
 function carrotClick( ) {
     player.carrots += player.perClick;
-    player.allTimeCarrots += player.perClick
+    player.allTimeCarrots += player.perClick;
+    player.prestigeLevelCarrots += player.perClick;
     player.totalClicks += 1;
     document.getElementById('total-carrots').innerHTML = player.carrots.toFixed(0);
 }
@@ -75,7 +83,8 @@ var interval = setInterval(idleIncrement, 1000);
 // Increment carrot count by idle amount
 function idleIncrement() {
     player.carrots += player.perSecond;
-    player.allTimeCarrots += player.perSecond
+    player.allTimeCarrots += player.perSecond;
+    player.prestigeLevelCarrots += player.perSecond;
     document.getElementById('total-carrots').innerHTML = player.carrots.toFixed(0);
     // Display cps of each store item when hover over the image
     document.getElementsByClassName('item-info')[0].innerHTML = `${storeItems.paw.idle} cps`;
@@ -86,14 +95,30 @@ function idleIncrement() {
     document.getElementsByClassName('item-info')[5].innerHTML = `${storeItems.bunny.idle} cps`;
     document.getElementsByClassName('item-info')[6].innerHTML = `${storeItems.farm.idle} cps`;
 
+    // Display amount of carrots needed before prestige
+    const amountNeeded = game.prestigeCost - player.prestigeLevelCarrots;
+    document.getElementById('prestige-left').innerHTML = amountNeeded <= 0 ? 'Prestige Ready!' : amountNeeded + ' carrots needed to prestige';
+
     // Display number of cookies in the tab
     document.getElementsByTagName('title')[0].innerHTML = `${Math.floor(player.carrots)} carrots - Bunny Clicker`;
+
+    if (player.prestigeLevelCarrots >= game.prestigeCost) {
+        prestigeButton.disabled = false;
+        prestigeButton.style.opacity = 1;
+    } else {
+        prestigeButton.disabled = true;
+        prestigeButton.style.opacity = .5;
+        prestigeButton.style.backgroundColor = 'rgb(255, 128, 0)';
+    }
 }
 // Calculate and display carrots per second
 function idleCarrots() {
     player.perSecond = ((storeItems.paw.idle * storeItems.paw.total) + (storeItems.hay.idle * storeItems.hay.total) + (storeItems.flower.idle * storeItems.flower.total) + (storeItems.water.idle * storeItems.water.total) + (storeItems.hutch.idle * storeItems.hutch.total) + (storeItems.bunny.idle * storeItems.bunny.total) + (storeItems.farm.idle * storeItems.farm.total))
     if (player.totalAchievements > 0) {
         achievementBonus()
+    }
+    if (player.prestige > 0) {
+        prestigeBonus()
     }
     const onedp = player.perSecond.toFixed(1)
     document.getElementById('idle-carrots').innerHTML = (onedp == 0.0) ? `0 carrots per second` : `${onedp} carrots per second`;
@@ -192,7 +217,7 @@ function displayStore() {
         }
     } else {
         for (let item of items) {
-            document.getElementById(`${item}-cost`).innerHTML = storeItems[item].cost;
+            document.getElementById(`${item}-cost`).innerHTML = Number(storeItems[item].cost).toFixed(1);
             document.getElementById(`${item}-total`).innerHTML = `x${storeItems[item].total}`;
         }
     }
@@ -250,6 +275,49 @@ function storeItemSell(item) {
     displayStore();
     idleCarrots();
 }
+
+
+// Prestige
+function prestige() {
+    if (confirm('Are you ready to prestige?')) {
+            player.prestige += 1;
+            game.prestigeCost *= 5;
+            var gameSave = {
+                player: {
+                    carrots: 0,
+                    allTimeCarrots: player.allTimeCarrots,
+                    prestigeLevelCarrots: 0,
+                
+                    totalClicks: player.totalClicks,
+                    perClick: 1,
+                    perSecond: 0,
+                    totalRocketBunnyClicks: player.totalRocketBunnyClicks,
+                
+                    achievementsGot: player.achievementsGot,
+                    totalAchievements: player.totalAchievements,
+                    
+                    purchasedUpgrades: [],
+                
+                    prestige: player.prestige,
+                },
+                game: {
+                    prestigeCost: game.prestigeCost,
+                }
+            }
+            localStorage.setItem('gameSave', JSON.stringify(gameSave));
+            location.reload();
+}}
+function prestigeBonus() {
+    let totalBonus = player.prestige * 10;
+    player.perSecond += player.perSecond * totalBonus;
+    let prestigeBoost = totalBonus;
+    if (player.prestige > 0) {
+        document.querySelector('#prestige').innerHTML = `Prestige Boost = ${prestigeBoost}%`
+    }
+}
+
+document.getElementById('prestige-button')
+
 
 // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // 
 
@@ -855,9 +923,31 @@ if (storeItems.bunny.total < 10) {
     document.getElementById('achievement-ten-bunny').hidden = true
 }
 
-// hutch achievements
+// farm achievements
 if (storeItems.farm.total < 10) {
     document.getElementById('achievement-ten-farm').hidden = true
+}
+
+// rocket bunny achievements
+if (player.totalRocketBunnyClicks < 1) {
+    document.getElementById('achievement-one-rocketBunny').hidden = true
+}
+if (player.totalRocketBunnyClicks < 10) {
+    document.getElementById('achievement-ten-rocketBunny').hidden = true
+}
+if (player.totalRocketBunnyClicks < 100) {
+    document.getElementById('achievement-onehundred-rocketBunny').hidden = true
+}
+
+// prestige achievements
+if (player.prestige < 1) {
+    document.getElementById('achievement-first-prestige').hidden = true
+}
+if (player.prestige < 2) {
+    document.getElementById('achievement-second-prestige').hidden = true
+}
+if (player.prestige < 5) {
+    document.getElementById('achievement-fifth-prestige').hidden = true
 }
 
 var achievemntInterval = setInterval(checkAchievements, 2000);
@@ -1142,35 +1232,127 @@ function checkAchievements() {
         idleCarrots()
     }
 
+    // rocket bunny
+    if (player.totalRocketBunnyClicks >= 1 && (!player.achievementsGot.includes('achievement-one-rocketBunny'))) {
+        document.getElementById('achievement-one-rocketBunny').hidden = false;
+        document.getElementById('achievement-one-rocketBunny').style.border = '2px solid gold'
+        document.getElementById('achievement-one-rocketBunny').style.height = '8rem'
+        document.getElementById('achievement-one-rocketBunny').style.width = '8rem'
+        player.achievementsGot.push('achievement-one-rocketBunny');
+        player.totalAchievements += 1;
+        idleCarrots()
+    }
+    if (player.totalRocketBunnyClicks >= 10 && (!player.achievementsGot.includes('achievement-ten-rocketBunny'))) {
+        document.getElementById('achievement-ten-rocketBunny').hidden = false;
+        document.getElementById('achievement-ten-rocketBunny').style.border = '2px solid gold'
+        document.getElementById('achievement-ten-rocketBunny').style.height = '8rem'
+        document.getElementById('achievement-ten-rocketBunny').style.width = '8rem'
+        player.achievementsGot.push('achievement-ten-rocketBunny');
+        player.totalAchievements += 1;
+        idleCarrots()
+    }
+    if (player.totalRocketBunnyClicks >= 100 && (!player.achievementsGot.includes('achievement-onehundred-rocketBunny'))) {
+        document.getElementById('achievement-onehundred-rocketBunny').hidden = false;
+        document.getElementById('achievement-onehundred-rocketBunny').style.border = '2px solid gold'
+        document.getElementById('achievement-onehundred-rocketBunny').style.height = '8rem'
+        document.getElementById('achievement-onehundred-rocketBunny').style.width = '8rem'
+        player.achievementsGot.push('achievement-onehundred-rocketBunny');
+        player.totalAchievements += 1;
+        idleCarrots()
+    }
+
+    // prestige
+    if (player.prestige >= 1 && (!player.achievementsGot.includes('achievement-first-prestige'))) {
+        document.getElementById('achievement-first-prestige').hidden = false;
+        document.getElementById('achievement-first-prestige').style.border = '2px solid gold'
+        document.getElementById('achievement-first-prestige').style.height = '8rem'
+        document.getElementById('achievement-first-prestige').style.width = '8rem'
+        player.achievementsGot.push('achievement-first-prestige');
+        player.totalAchievements += 1;
+        idleCarrots()
+    }
+    if (player.prestige >= 2 && (!player.achievementsGot.includes('achievement-second-prestige'))) {
+        document.getElementById('achievement-second-prestige').hidden = false;
+        document.getElementById('achievement-second-prestige').style.border = '2px solid gold'
+        document.getElementById('achievement-second-prestige').style.height = '8rem'
+        document.getElementById('achievement-second-prestige').style.width = '8rem'
+        player.achievementsGot.push('achievement-second-prestige');
+        player.totalAchievements += 1;
+        idleCarrots()
+    }
+    if (player.prestige >= 5 && (!player.achievementsGot.includes('achievement-fifth-prestige'))) {
+        document.getElementById('achievement-fifth-prestige').hidden = false;
+        document.getElementById('achievement-fifth-prestige').style.border = '2px solid gold'
+        document.getElementById('achievement-fifth-prestige').style.height = '8rem'
+        document.getElementById('achievement-fifth-prestige').style.width = '8rem'
+        player.achievementsGot.push('achievement-fifth-prestige');
+        player.totalAchievements += 1;
+        idleCarrots()
+    }
+
     document.querySelector('.achievements h2').innerHTML = `Acievements (${player.totalAchievements} / ${noOfAchievements})`;
 }
 
 
-// const rocketChance = setInterval(bunnyRocket, 5000)
-// function bunnyRocket() {
-//     if (Math.floor(Math.random() * 10) > 5) {
-//         console.log('Woosh!!')
-//         document.getElementById('bunny-rocket').hidden = false;
-//     } else {
-//         console.log('BYEYEYEYYEEEEEE')
-//         document.getElementById('bunny-rocket').hidden = true;
-//     }
-// }
+const bunnyRocket = document.getElementById('bunny-rocket');
+bunnyRocket.hidden = true;
 
-function abbreviateNumber(value) {
-    let newValue = value;
-    if (value >= 1000) {
-        let suffixes = ['', 'k', 'm', 'b', 't'];
-        let suffixNum = Math.floor( (''+value).length/3 );
-        let shortValue;
-        for (let precision = 2; precision >= 1; precision--) {
-            shortValue = parseFloat( (suffixNum != 0 ? (value / Math.pow(1000,suffixNum) ) : value).toPrecision(precision));
-            let dotLessShortValue = (shortValue + '').replace(/[^a-zA-z 0-9]+/g, '');
-            if (dotLessShortValue.length <= 2) { break; };
+bunnyRocket.addEventListener('click', () => {
+    const toAdd = player.perSecond * 100 > 1000 ? player.perSecond * 100 : 1000;
+    player.carrots += toAdd;
+    player.allTimeCarrots += toAdd;
+    player.prestigeLevelCarrots += toAdd;
+    player.totalRocketBunnyClicks += 1;
+    document.getElementById('total-carrots').innerHTML = player.carrots.toFixed(0);
+    bunnyRocket.hidden = true;
+})
+
+const rocketAppear = setInterval(bunnyRocketAppear, 180000);
+function bunnyRocketAppear() {
+    let disappear = setTimeout(() => {
+        bunnyRocket.hidden = true;
+    }, 10000)
+    
+    bunnyRocket.hidden = false;
+
+
+    const moveTime = setInterval(move, 90);
+    let margin = 0;
+
+    let l = window.screen.width;
+    let w = -500;
+
+    function move() {
+        if (margin == w) {
+            margin = 0 + 'px';
+        } else {
+            bunnyRocket.style.marginLeft = margin + 'px';
+            bunnyRocket.style.marginTop = margin + 'px';
         }
-        if (shortValue % 1 != 0) shortValue = shortValue.toFixed(1);
-        newValue = shortValue+suffixes[suffixNum];
+        margin -= 7;
     }
-    console.log(newValue)
-    return newValue;
+
 }
+
+
+
+
+
+
+// function abbreviateNumber(value) {
+//     let newValue = value;
+//     if (value >= 1000) {
+//         let suffixes = ['', 'k', 'm', 'b', 't'];
+//         let suffixNum = Math.floor( (''+value).length/3 );
+//         let shortValue;
+//         for (let precision = 2; precision >= 1; precision--) {
+//             shortValue = parseFloat( (suffixNum != 0 ? (value / Math.pow(1000,suffixNum) ) : value).toPrecision(precision));
+//             let dotLessShortValue = (shortValue + '').replace(/[^a-zA-z 0-9]+/g, '');
+//             if (dotLessShortValue.length <= 2) { break; };
+//         }
+//         if (shortValue % 1 != 0) shortValue = shortValue.toFixed(1);
+//         newValue = shortValue+suffixes[suffixNum];
+//     }
+//     console.log(newValue)
+//     return newValue;
+// }

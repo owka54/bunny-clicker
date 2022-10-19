@@ -12,7 +12,9 @@ body {
 #bunny-rocket {
     position: absolute;
     height: 10rem;
-    display: none;
+    left: 20rem;
+    top: 20rem;
+    transform: translate(20rem, 20rem);
 }
 
 /* Header */
@@ -20,6 +22,29 @@ header {
     margin: 1rem;
     padding: 0;
     text-align: right;
+}
+header div {
+    display: inline;
+}
+header div #prestige {
+    display: block;
+}
+header div #prestige-left {
+    display: none;
+}
+header div:hover #prestige-left {
+    display: inline-block;
+}
+#prestige-button {
+    background-color: rgb(255, 128, 0);
+    color: white;
+    border: 1px solid gold;
+    padding: 1rem;
+    width: 7rem;
+    opacity: .5;
+}
+#prestige-button:hover {
+    background-color: rgb(255, 162, 69);
 }
 #save-button {
     background-color: green;
@@ -66,13 +91,13 @@ main {
 }
 
 .buy-container {
-    max-height: 70%;
+    max-height: 60%;
     max-width: 100%;
     border: 3px solid burlywood;
 }
 /* Store */
 .store {
-    max-height: 70%;
+    max-height: 60%;
     overflow: scroll;
     overflow-x: hidden;
 }
@@ -150,7 +175,7 @@ main {
     margin: 0 auto;
     border-top: 3px solid burlywood;
     overflow-y: scroll;
-    height: 15rem
+    height: 17rem
 }
 .upgrades-store .upgrades {
     display: flex;
@@ -181,7 +206,7 @@ main {
 /* ACHIEVEMENTS */
 .achievements {
     max-width: 100%;
-    max-height: 70%;
+    max-height: 60%;
     margin: 0 1rem;
     border: 3px solid burlywood;
     overflow-y: scroll;
@@ -309,5 +334,10 @@ main {
     #main-carrot {
         height: 15rem;
     }
-
+    
+    #bunny-rocket {
+        left: 5rem;
+        top: 5rem;
+        transform: translate(5rem, 5rem);
+    }
 }
