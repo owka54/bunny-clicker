@@ -20,6 +20,7 @@
         <div>
             <div id="total-carrots">0</div>
             <div id="idle-carrots"></div>
+            <img id="bunny-rocket" src="./resources/images/bunny-carrot-rocket.png" alt="Astronaught bunny on carrot rocket">
             <!-- "https://www.flaticon.com/free-icons/carrot" created by Freepik - Flaticon -->
             <img id='main-carrot' src="./resources/images/carrot.png" alt="A carrot" onclick={carrotClick()}>   
         </div>
@@ -142,6 +143,18 @@
                             <p>Have 25 hay</p>
                         </div>
                     </div>
+                    <div class="achievement">
+                        <div id="achievement-fifty-hay">
+                            <h4>50 Hay</h4>
+                            <p>Have 50 hay</p>
+                        </div>
+                    </div>
+                    <div class="achievement">
+                        <div id="achievement-onehundred-hay">
+                            <h4>100 Hay</h4>
+                            <p>Have 100 hay</p>
+                        </div>
+                    </div>
 
                     <div class="achievement">
                         <div id="achievement-ten-flower">
@@ -155,11 +168,41 @@
                             <p>Have 25 flowers</p>
                         </div>
                     </div>
+                    <div class="achievement">
+                        <div id="achievement-fifty-flower">
+                            <h4>50 flowers</h4>
+                            <p>Have 50 flowers</p>
+                        </div>
+                    </div>
+                    <div class="achievement">
+                        <div id="achievement-onehundred-flower">
+                            <h4>100 flowers</h4>
+                            <p>Have 100 flowers</p>
+                        </div>
+                    </div>
 
                     <div class="achievement">
                         <div id="achievement-ten-water">
                             <h4>10 waters</h4>
                             <p>Have 10 water</p>
+                        </div>
+                    </div>
+                    <div class="achievement">
+                        <div id="achievement-twentyfive-water">
+                            <h4>25 waters</h4>
+                            <p>Have 25 water</p>
+                        </div>
+                    </div>
+                    <div class="achievement">
+                        <div id="achievement-fifty-water">
+                            <h4>50 waters</h4>
+                            <p>Have 50 water</p>
+                        </div>
+                    </div>
+                    <div class="achievement">
+                        <div id="achievement-onehundred-water">
+                            <h4>100 waters</h4>
+                            <p>Have 100 water</p>
                         </div>
                     </div>
 
@@ -314,7 +357,19 @@
                         <div class="upgrade">
                             <div id="click-upgrade3">
                                 <button onclick={clickUpgrade3()}>Click x2</button>
-                                <p>Cost:1500</p>
+                                <p>Cost:1,500</p>
+                            </div>
+                        </div>
+                        <div class="upgrade">
+                            <div id="click-upgrade4">
+                                <button onclick={clickUpgrade4()}>Click x2</button>
+                                <p>Cost:3,000</p>
+                            </div>
+                        </div>
+                        <div class="upgrade">
+                            <div id="click-upgrade5">
+                                <button onclick={clickUpgrade5()}>Click x2</button>
+                                <p>Cost:5,000</p>
                             </div>
                         </div>
 
@@ -330,6 +385,18 @@
                                 <p>Cost: 500</p>
                             </div>
                         </div>
+                        <div class="upgrade">
+                            <div id="paw-upgrade3">
+                                <button  onclick={pawUpgrade3()}>Paw x2.5</button>
+                                <p>Cost: 750</p>
+                            </div>
+                        </div>
+                        <div class="upgrade">
+                            <div id="paw-upgrade4">
+                                <button  onclick={pawUpgrade4()}>Paw x2</button>
+                                <p>Cost: 1,000</p>
+                            </div>
+                        </div>
 
                         <div class="upgrade">
                             <div id="hay-upgrade">
@@ -337,11 +404,35 @@
                                 <p>Cost: 750</p>
                             </div>
                         </div>
+                        <div class="upgrade">
+                            <div id="hay-upgrade2">
+                                <button onclick={hayUpgrade2()}>Hay x2</button>
+                                <p>Cost: 1,250</p>
+                            </div>
+                        </div>
+                        <div class="upgrade">
+                            <div id="hay-upgrade3">
+                                <button onclick={hayUpgrade3()}>Hay x2</button>
+                                <p>Cost: 1,750</p>
+                            </div>
+                        </div>
 
                         <div class="upgrade">
                             <div id="flower-upgrade">
                                 <button onclick={flowerUpgrade()}>Flower x1.5</button>
                                 <p>Cost:1,250</p>
+                            </div>
+                        </div>
+                        <div class="upgrade">
+                            <div id="flower-upgrade2">
+                                <button onclick={flowerUpgrade2()}>Flower x2.5</button>
+                                <p>Cost:2,000</p>
+                            </div>
+                        </div>
+                        <div class="upgrade">
+                            <div id="flower-upgrade3">
+                                <button onclick={flowerUpgrade3()}>Flower x2</button>
+                                <p>Cost:3,500</p>
                             </div>
                         </div>
 
@@ -368,8 +459,20 @@
                         
                         <div class="upgrade">
                             <div id="farm-upgrade">
-                                <button onclick={farmUpgrade()}>Farm x2</button>
+                                <button onclick={farmUpgrade()}>Farm x1.5</button>
                                 <p>Cost:15,000</p>
+                            </div>
+                        </div>
+                        <div class="upgrade">
+                            <div id="farm-upgrade2">
+                                <button onclick={farmUpgrade2()}>Farm x2</button>
+                                <p>Cost:27,500</p>
+                            </div>
+                        </div>
+                        <div class="upgrade">
+                            <div id="farm-upgrade3">
+                                <button onclick={farmUpgrade3()}>Farm x2</button>
+                                <p>Cost:45,000</p>
                             </div>
                         </div>
 

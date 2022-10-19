@@ -57,17 +57,17 @@ let storeItems = {
     }
 }
 
-noOfAchievements = 23;
-noOfUpgrades = 11;
+noOfAchievements = 30;
+noOfUpgrades = 21;
 // // // // // // // // // //
 
 
 // Increment carrots every click
-function carrotClick() {
+function carrotClick( ) {
     player.carrots += player.perClick;
     player.allTimeCarrots += player.perClick
     player.totalClicks += 1;
-    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+    document.getElementById('total-carrots').innerHTML = player.carrots.toFixed(0);
 }
 
 // Invoke idleIncrement every second
@@ -76,7 +76,7 @@ var interval = setInterval(idleIncrement, 1000);
 function idleIncrement() {
     player.carrots += player.perSecond;
     player.allTimeCarrots += player.perSecond
-    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+    document.getElementById('total-carrots').innerHTML = player.carrots.toFixed(0);
     // Display cps of each store item when hover over the image
     document.getElementsByClassName('item-info')[0].innerHTML = `${storeItems.paw.idle} cps`;
     document.getElementsByClassName('item-info')[1].innerHTML = `${storeItems.hay.idle} cps`;
@@ -96,7 +96,7 @@ function idleCarrots() {
         achievementBonus()
     }
     const onedp = player.perSecond.toFixed(1)
-    document.getElementById('idle-carrots').innerHTML = `${onedp} carrots per second`;
+    document.getElementById('idle-carrots').innerHTML = (onedp == 0.0) ? `0 carrots per second` : `${onedp} carrots per second`;
 }
 // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // 
 
@@ -133,20 +133,7 @@ window.onload = function() {
     loadGame();
     idleCarrots();
 
-    document.getElementById('paw-total').innerHTML = `x${storeItems.paw.total}`;
-    document.getElementById('paw-cost').innerHTML = storeItems.paw.cost.toFixed(1);
-    document.getElementById('hay-total').innerHTML = `x${storeItems.hay.total}`;
-    document.getElementById('hay-cost').innerHTML = storeItems.hay.cost.toFixed(1);
-    document.getElementById('flower-total').innerHTML = `x${storeItems.flower.total}`;
-    document.getElementById('flower-cost').innerHTML = storeItems.flower.cost.toFixed(1);
-    document.getElementById('water-total').innerHTML = `x${storeItems.water.total}`;
-    document.getElementById('water-cost').innerHTML = storeItems.water.cost.toFixed(1);
-    document.getElementById('hutch-total').innerHTML = `x${storeItems.hutch.total}`;
-    document.getElementById('hutch-cost').innerHTML = storeItems.hutch.cost.toFixed(1);
-    document.getElementById('bunny-total').innerHTML = `x${storeItems.bunny.total}`;
-    document.getElementById('bunny-cost').innerHTML = storeItems.bunny.cost.toFixed(1);
-    document.getElementById('farm-total').innerHTML = `x${storeItems.farm.total}`;
-    document.getElementById('farm-cost').innerHTML = storeItems.farm.cost.toFixed(1);
+    displayStore();
 
     for (let achievement in player.achievementsGot) {
         document.getElementById(player.achievementsGot[achievement]).hidden = false;
@@ -165,6 +152,7 @@ window.onload = function() {
     }
 
     document.querySelector('.achievements h2').innerHTML = `Acievements (${player.totalAchievements} / ${noOfAchievements})`;
+    document.querySelector('.upgrades-store h2').innerHTML = `Upgrades (${player.purchasedUpgrades.length} / ${noOfUpgrades})`;
     
 }
 
@@ -187,11 +175,11 @@ function storeMultiple(value) {
 function displayStore() {
     const items = ['paw', 'hay', 'flower', 'water', 'hutch', 'bunny', 'farm'];
     // If not buying 1
-    if (game.storeMultiple !== 1) {
+    if (game.storeMultiple != 1) {
         for (let item of items) {
             // set p to initial price
             let p = storeItems[item].cost;
-            let sum = p;
+            let sum = Number(p);
             
             for (let n = 1; n < game.storeMultiple; n++) {
                 // set p to new price
@@ -236,7 +224,7 @@ function storeItemBuy(item) {
         for (let n = 1; n <= game.storeMultiple; n++) {
             cost *= 1.15;
         }
-        storeItem.cost = cost;
+        storeItem.cost = cost.toFixed(1);
     } else {
         storeItem.cost *= 1.15;
     }
@@ -302,6 +290,9 @@ function pawUpgrade() {
     document.querySelector('#paw-upgrade button').style.setProperty('background-color', 'black');
     document.querySelector('#paw-upgrade button').style.marginBottom = '3rem'
     document.querySelector('#paw-upgrade p').hidden = true;
+
+    document.querySelector('.upgrades-store h2').innerHTML = `Upgrades (${player.purchasedUpgrades.length} / ${noOfUpgrades})`;
+
 }
 function pawUpgrade2() {
     if (player.carrots < 500) {
@@ -321,6 +312,53 @@ function pawUpgrade2() {
     document.querySelector('#paw-upgrade2 button').style.setProperty('background-color', 'black');
     document.querySelector('#paw-upgrade2 button').style.marginBottom = '3rem'
     document.querySelector('#paw-upgrade2 p').hidden = true;
+
+    document.querySelector('.upgrades-store h2').innerHTML = `Upgrades (${player.purchasedUpgrades.length} / ${noOfUpgrades})`;
+
+}
+function pawUpgrade3() {
+    if (player.carrots < 750) {
+        alert('Not enough carrots!');
+        return;
+    }
+    storeItems.paw.idle *= 2.5;
+    player.purchasedUpgrades.push('paw-upgrade3')
+    idleCarrots();
+
+    player.carrots -= 750;
+    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+
+    document.querySelector('#paw-upgrade3 button').hidden = false;
+    document.querySelector('#paw-upgrade3 button').disabled = true;
+    document.querySelector('#paw-upgrade3 button').style.borderColor = 'lime';
+    document.querySelector('#paw-upgrade3 button').style.setProperty('background-color', 'black');
+    document.querySelector('#paw-upgrade3 button').style.marginBottom = '3rem'
+    document.querySelector('#paw-upgrade3 p').hidden = true;
+
+    document.querySelector('.upgrades-store h2').innerHTML = `Upgrades (${player.purchasedUpgrades.length} / ${noOfUpgrades})`;
+
+}
+function pawUpgrade4() {
+    if (player.carrots < 1000) {
+        alert('Not enough carrots!');
+        return;
+    }
+    storeItems.paw.idle *= 2;
+    player.purchasedUpgrades.push('paw-upgrade4')
+    idleCarrots();
+
+    player.carrots -= 1000;
+    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+
+    document.querySelector('#paw-upgrade4 button').hidden = false;
+    document.querySelector('#paw-upgrade4 button').disabled = true;
+    document.querySelector('#paw-upgrade4 button').style.borderColor = 'lime';
+    document.querySelector('#paw-upgrade4 button').style.setProperty('background-color', 'black');
+    document.querySelector('#paw-upgrade4 button').style.marginBottom = '3rem'
+    document.querySelector('#paw-upgrade4 p').hidden = true;
+
+    document.querySelector('.upgrades-store h2').innerHTML = `Upgrades (${player.purchasedUpgrades.length} / ${noOfUpgrades})`;
+
 }
 
 function clickUpgrade() {
@@ -340,6 +378,9 @@ function clickUpgrade() {
     document.querySelector('#click-upgrade button').style.setProperty('background-color', 'black');
     document.querySelector('#click-upgrade button').style.marginBottom = '3rem'
     document.querySelector('#click-upgrade p').hidden = true
+
+    document.querySelector('.upgrades-store h2').innerHTML = `Upgrades (${player.purchasedUpgrades.length} / ${noOfUpgrades})`;
+
 }
 function clickUpgrade2() {
     if (player.carrots < 750) {
@@ -358,6 +399,9 @@ function clickUpgrade2() {
     document.querySelector('#click-upgrade2 button').style.setProperty('background-color', 'black');
     document.querySelector('#click-upgrade2 button').style.marginBottom = '3rem'
     document.querySelector('#click-upgrade2 p').hidden = true
+
+    document.querySelector('.upgrades-store h2').innerHTML = `Upgrades (${player.purchasedUpgrades.length} / ${noOfUpgrades})`;
+
 }
 function clickUpgrade3() {
     if (player.carrots < 1500) {
@@ -376,6 +420,51 @@ function clickUpgrade3() {
     document.querySelector('#click-upgrade3 button').style.setProperty('background-color', 'black');
     document.querySelector('#click-upgrade3 button').style.marginBottom = '3rem'
     document.querySelector('#click-upgrade3 p').hidden = true
+
+    document.querySelector('.upgrades-store h2').innerHTML = `Upgrades (${player.purchasedUpgrades.length} / ${noOfUpgrades})`;
+
+}
+function clickUpgrade4() {
+    if (player.carrots < 3000) {
+        alert('Not enough carrots!');
+        return;
+    }
+    player.perClick *= 2;
+    player.purchasedUpgrades.push('click-upgrade4')
+
+    player.carrots -= 3000;
+    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+
+    document.querySelector('#click-upgrade4 button').hidden = false;
+    document.querySelector('#click-upgrade4 button').disabled = true;
+    document.querySelector('#click-upgrade4 button').style.borderColor = 'lime';
+    document.querySelector('#click-upgrade4 button').style.setProperty('background-color', 'black');
+    document.querySelector('#click-upgrade4 button').style.marginBottom = '3rem'
+    document.querySelector('#click-upgrade4 p').hidden = true
+
+    document.querySelector('.upgrades-store h2').innerHTML = `Upgrades (${player.purchasedUpgrades.length} / ${noOfUpgrades})`;
+
+}
+function clickUpgrade5() {
+    if (player.carrots < 5000) {
+        alert('Not enough carrots!');
+        return;
+    }
+    player.perClick *= 2;
+    player.purchasedUpgrades.push('click-upgrade5')
+
+    player.carrots -= 5000;
+    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+
+    document.querySelector('#click-upgrade5 button').hidden = false;
+    document.querySelector('#click-upgrade5 button').disabled = true;
+    document.querySelector('#click-upgrade5 button').style.borderColor = 'lime';
+    document.querySelector('#click-upgrade5 button').style.setProperty('background-color', 'black');
+    document.querySelector('#click-upgrade5 button').style.marginBottom = '3rem'
+    document.querySelector('#click-upgrade5 p').hidden = true
+
+    document.querySelector('.upgrades-store h2').innerHTML = `Upgrades (${player.purchasedUpgrades.length} / ${noOfUpgrades})`;
+
 }
 
 function hayUpgrade() {
@@ -396,6 +485,53 @@ function hayUpgrade() {
     document.querySelector('#hay-upgrade button').style.setProperty('background-color', 'black');
     document.querySelector('#hay-upgrade button').style.marginBottom = '3rem'
     document.querySelector('#hay-upgrade p').hidden = true;
+
+    document.querySelector('.upgrades-store h2').innerHTML = `Upgrades (${player.purchasedUpgrades.length} / ${noOfUpgrades})`;
+
+}
+function hayUpgrade2() {
+    if (player.carrots < 1250) {
+        alert('Not enough carrots!');
+        return;
+    }
+    storeItems.hay.idle *= 2;
+    player.purchasedUpgrades.push('hay-upgrade2')
+    idleCarrots();
+
+    player.carrots -= 1250;
+    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+
+    document.querySelector('#hay-upgrade2 button').hidden = false;
+    document.querySelector('#hay-upgrade2 button').disabled = true;
+    document.querySelector('#hay-upgrade2 button').style.borderColor = 'lime';
+    document.querySelector('#hay-upgrade2 button').style.setProperty('background-color', 'black');
+    document.querySelector('#hay-upgrade2 button').style.marginBottom = '3rem'
+    document.querySelector('#hay-upgrade2 p').hidden = true;
+
+    document.querySelector('.upgrades-store h2').innerHTML = `Upgrades (${player.purchasedUpgrades.length} / ${noOfUpgrades})`;
+
+}
+function hayUpgrade3() {
+    if (player.carrots < 1750) {
+        alert('Not enough carrots!');
+        return;
+    }
+    storeItems.hay.idle *= 2;
+    player.purchasedUpgrades.push('hay-upgrade3')
+    idleCarrots();
+
+    player.carrots -= 1750;
+    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+
+    document.querySelector('#hay-upgrade3 button').hidden = false;
+    document.querySelector('#hay-upgrade3 button').disabled = true;
+    document.querySelector('#hay-upgrade3 button').style.borderColor = 'lime';
+    document.querySelector('#hay-upgrade3 button').style.setProperty('background-color', 'black');
+    document.querySelector('#hay-upgrade3 button').style.marginBottom = '3rem'
+    document.querySelector('#hay-upgrade3 p').hidden = true;
+
+    document.querySelector('.upgrades-store h2').innerHTML = `Upgrades (${player.purchasedUpgrades.length} / ${noOfUpgrades})`;
+
 }
 
 function flowerUpgrade() {
@@ -416,6 +552,53 @@ function flowerUpgrade() {
     document.querySelector('#flower-upgrade button').style.setProperty('background-color', 'black');
     document.querySelector('#flower-upgrade button').style.marginBottom = '3rem'
     document.querySelector('#flower-upgrade p').hidden = true;
+
+    document.querySelector('.upgrades-store h2').innerHTML = `Upgrades (${player.purchasedUpgrades.length} / ${noOfUpgrades})`;
+
+}
+function flowerUpgrade2() {
+    if (player.carrots < 2000) {
+        alert('Not enough carrots!');
+        return;
+    }
+    storeItems.flower.idle *= 2.5;
+    player.purchasedUpgrades.push('flower-upgrade2')
+    idleCarrots();
+
+    player.carrots -= 2000;
+    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+
+    document.querySelector('#flower-upgrade2 button').hidden = false;
+    document.querySelector('#flower-upgrade2 button').disabled = true;
+    document.querySelector('#flower-upgrade2 button').style.borderColor = 'lime';
+    document.querySelector('#flower-upgrade2 button').style.setProperty('background-color', 'black');
+    document.querySelector('#flower-upgrade2 button').style.marginBottom = '3rem'
+    document.querySelector('#flower-upgrade2 p').hidden = true;
+
+    document.querySelector('.upgrades-store h2').innerHTML = `Upgrades (${player.purchasedUpgrades.length} / ${noOfUpgrades})`;
+
+}
+function flowerUpgrade3() {
+    if (player.carrots < 3500) {
+        alert('Not enough carrots!');
+        return;
+    }
+    storeItems.flower.idle *= 1.5;
+    player.purchasedUpgrades.push('flower-upgrade3')
+    idleCarrots();
+
+    player.carrots -= 3500;
+    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+
+    document.querySelector('#flower-upgrade3 button').hidden = false;
+    document.querySelector('#flower-upgrade3 button').disabled = true;
+    document.querySelector('#flower-upgrade3 button').style.borderColor = 'lime';
+    document.querySelector('#flower-upgrade3 button').style.setProperty('background-color', 'black');
+    document.querySelector('#flower-upgrade3 button').style.marginBottom = '3rem'
+    document.querySelector('#flower-upgrade3 p').hidden = true;
+
+    document.querySelector('.upgrades-store h2').innerHTML = `Upgrades (${player.purchasedUpgrades.length} / ${noOfUpgrades})`;
+
 }
 
 function waterUpgrade() {
@@ -436,6 +619,9 @@ function waterUpgrade() {
     document.querySelector('#water-upgrade button').style.setProperty('background-color', 'black');
     document.querySelector('#water-upgrade button').style.marginBottom = '3rem'
     document.querySelector('#water-upgrade p').hidden = true;
+
+    document.querySelector('.upgrades-store h2').innerHTML = `Upgrades (${player.purchasedUpgrades.length} / ${noOfUpgrades})`;
+
 }
 
 function hutchUpgrade() {
@@ -456,6 +642,9 @@ function hutchUpgrade() {
     document.querySelector('#hutch-upgrade button').style.setProperty('background-color', 'black');
     document.querySelector('#hutch-upgrade button').style.marginBottom = '3rem'
     document.querySelector('#hutch-upgrade p').hidden = true;
+
+    document.querySelector('.upgrades-store h2').innerHTML = `Upgrades (${player.purchasedUpgrades.length} / ${noOfUpgrades})`;
+
 }
 
 function bunnyUpgrade() {
@@ -476,6 +665,9 @@ function bunnyUpgrade() {
     document.querySelector('#bunny-upgrade button').style.setProperty('background-color', 'black');
     document.querySelector('#bunny-upgrade button').style.marginBottom = '3rem'
     document.querySelector('#bunny-upgrade p').hidden = true;
+
+    document.querySelector('.upgrades-store h2').innerHTML = `Upgrades (${player.purchasedUpgrades.length} / ${noOfUpgrades})`;
+
 }
 
 function farmUpgrade() {
@@ -496,6 +688,53 @@ function farmUpgrade() {
     document.querySelector('#farm-upgrade button').style.setProperty('background-color', 'black');
     document.querySelector('#farm-upgrade button').style.marginBottom = '3rem'
     document.querySelector('#farm-upgrade p').hidden = true;
+
+    document.querySelector('.upgrades-store h2').innerHTML = `Upgrades (${player.purchasedUpgrades.length} / ${noOfUpgrades})`;
+
+}
+function farmUpgrade2() {
+    if (player.carrots < 27500) {
+        alert('Not enough carrots!');
+        return;
+    }
+    storeItems.farm.idle *= 2;
+    player.purchasedUpgrades.push('farm-upgrade2')
+    idleCarrots();
+
+    player.carrots -= 27500;
+    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+
+    document.querySelector('#farm-upgrade2 button').hidden = false;
+    document.querySelector('#farm-upgrade2 button').disabled = true;
+    document.querySelector('#farm-upgrade2 button').style.borderColor = 'lime';
+    document.querySelector('#farm-upgrade2 button').style.setProperty('background-color', 'black');
+    document.querySelector('#farm-upgrade2 button').style.marginBottom = '3rem'
+    document.querySelector('#farm-upgrade2 p').hidden = true;
+
+    document.querySelector('.upgrades-store h2').innerHTML = `Upgrades (${player.purchasedUpgrades.length} / ${noOfUpgrades})`;
+
+}
+function farmUpgrade3() {
+    if (player.carrots < 45000) {
+        alert('Not enough carrots!');
+        return;
+    }
+    storeItems.farm.idle *= 2;
+    player.purchasedUpgrades.push('farm-upgrade3')
+    idleCarrots();
+
+    player.carrots -= 45000;
+    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+
+    document.querySelector('#farm-upgrade3 button').hidden = false;
+    document.querySelector('#farm-upgrade3 button').disabled = true;
+    document.querySelector('#farm-upgrade3 button').style.borderColor = 'lime';
+    document.querySelector('#farm-upgrade3 button').style.setProperty('background-color', 'black');
+    document.querySelector('#farm-upgrade3 button').style.marginBottom = '3rem'
+    document.querySelector('#farm-upgrade3 p').hidden = true;
+
+    document.querySelector('.upgrades-store h2').innerHTML = `Upgrades (${player.purchasedUpgrades.length} / ${noOfUpgrades})`;
+
 }
 
 
@@ -571,6 +810,12 @@ if (storeItems.hay.total < 10) {
 if (storeItems.hay.total < 25) {
     document.getElementById('achievement-twentyfive-hay').hidden = true
 }
+if (storeItems.hay.total < 50) {
+    document.getElementById('achievement-fifty-hay').hidden = true
+}
+if (storeItems.hay.total < 100) {
+    document.getElementById('achievement-onehundred-hay').hidden = true
+}
 
 // flower achievements
 if (storeItems.flower.total < 10) {
@@ -579,10 +824,25 @@ if (storeItems.flower.total < 10) {
 if (storeItems.flower.total < 25) {
     document.getElementById('achievement-twentyfive-flower').hidden = true
 }
+if (storeItems.flower.total < 50) {
+    document.getElementById('achievement-fifty-flower').hidden = true
+}
+if (storeItems.flower.total < 100) {
+    document.getElementById('achievement-onehundred-flower').hidden = true
+}
 
 // water achievements
 if (storeItems.water.total < 10) {
     document.getElementById('achievement-ten-water').hidden = true
+}
+if (storeItems.water.total < 25) {
+    document.getElementById('achievement-twentyfive-water').hidden = true
+}
+if (storeItems.water.total < 50) {
+    document.getElementById('achievement-fifty-water').hidden = true
+}
+if (storeItems.water.total < 100) {
+    document.getElementById('achievement-onehundred-water').hidden = true
 }
 
 // hutch achievements
@@ -740,7 +1000,7 @@ function checkAchievements() {
         player.totalAchievements += 1
         idleCarrots()
     }
-// //     // hay
+    // hay
     if (storeItems.hay.total >= 10 && (!player.achievementsGot.includes('achievement-ten-hay'))) {
         document.getElementById('achievement-ten-hay').hidden = false;
         document.getElementById('achievement-ten-hay').style.border = '2px solid gold'
@@ -759,7 +1019,25 @@ function checkAchievements() {
         player.totalAchievements += 1;
         idleCarrots()
     }
-// //     // flower
+    if (storeItems.hay.total >= 50 && (!player.achievementsGot.includes('achievement-fifty-hay'))) {
+        document.getElementById('achievement-fifty-hay').hidden = false;
+        document.getElementById('achievement-fifty-hay').style.border = '2px solid gold'
+        document.getElementById('achievement-fifty-hay').style.height = '8rem'
+        document.getElementById('achievement-fifty-hay').style.width = '8rem'
+        player.achievementsGot.push('achievement-fifty-hay');
+        player.totalAchievements += 1;
+        idleCarrots()
+    }
+    if (storeItems.hay.total >= 100 && (!player.achievementsGot.includes('achievement-onehundred-hay'))) {
+        document.getElementById('achievement-onehundred-hay').hidden = false;
+        document.getElementById('achievement-onehundred-hay').style.border = '2px solid gold'
+        document.getElementById('achievement-onehundred-hay').style.height = '8rem'
+        document.getElementById('achievement-onehundred-hay').style.width = '8rem'
+        player.achievementsGot.push('achievement-onehundred-hay');
+        player.totalAchievements += 1;
+        idleCarrots()
+    }
+    // flower
     if (storeItems.flower.total >= 10 && (!player.achievementsGot.includes('achievement-ten-flower'))) {
         document.getElementById('achievement-ten-flower').hidden = false;
         document.getElementById('achievement-ten-flower').style.border = '2px solid gold'
@@ -778,13 +1056,58 @@ function checkAchievements() {
         player.totalAchievements += 1;
         idleCarrots()
     }
-// //     // water
+    if (storeItems.flower.total >= 50 && (!player.achievementsGot.includes('achievement-fifty-flower'))) {
+        document.getElementById('achievement-fifty-flower').hidden = false;
+        document.getElementById('achievement-fifty-flower').style.border = '2px solid gold'
+        document.getElementById('achievement-fifty-flower').style.height = '8rem'
+        document.getElementById('achievement-fifty-flower').style.width = '8rem'
+        player.achievementsGot.push('achievement-fifty-flower');
+        player.totalAchievements += 1;
+        idleCarrots()
+    }
+    if (storeItems.flower.total >= 100 && (!player.achievementsGot.includes('achievement-onehundred-flower'))) {
+        document.getElementById('achievement-onehundred-flower').hidden = false;
+        document.getElementById('achievement-onehundred-flower').style.border = '2px solid gold'
+        document.getElementById('achievement-onehundred-flower').style.height = '8rem'
+        document.getElementById('achievement-onehundred-flower').style.width = '8rem'
+        player.achievementsGot.push('achievement-onehundred-flower');
+        player.totalAchievements += 1;
+        idleCarrots()
+    }
+    // water
     if (storeItems.water.total >= 10 && (!player.achievementsGot.includes('achievement-ten-water'))) {
         document.getElementById('achievement-ten-water').hidden = false;
         document.getElementById('achievement-ten-water').style.border = '2px solid gold'
         document.getElementById('achievement-ten-water').style.height = '8rem'
         document.getElementById('achievement-ten-water').style.width = '8rem'
         player.achievementsGot.push('achievement-ten-water');
+        player.totalAchievements += 1;
+        idleCarrots()
+    }
+    if (storeItems.water.total >= 25 && (!player.achievementsGot.includes('achievement-twentyfive-water'))) {
+        document.getElementById('achievement-twentyfive-water').hidden = false;
+        document.getElementById('achievement-twentyfive-water').style.border = '2px solid gold'
+        document.getElementById('achievement-twentyfive-water').style.height = '8rem'
+        document.getElementById('achievement-twentyfive-water').style.width = '8rem'
+        player.achievementsGot.push('achievement-twentyfive-water');
+        player.totalAchievements += 1;
+        idleCarrots()
+    }
+    if (storeItems.water.total >= 50 && (!player.achievementsGot.includes('achievement-fifty-water'))) {
+        document.getElementById('achievement-fifty-water').hidden = false;
+        document.getElementById('achievement-fifty-water').style.border = '2px solid gold'
+        document.getElementById('achievement-fifty-water').style.height = '8rem'
+        document.getElementById('achievement-fifty-water').style.width = '8rem'
+        player.achievementsGot.push('achievement-fifty-water');
+        player.totalAchievements += 1;
+        idleCarrots()
+    }
+    if (storeItems.water.total >= 100 && (!player.achievementsGot.includes('achievement-onehundred-water'))) {
+        document.getElementById('achievement-onehundred-water').hidden = false;
+        document.getElementById('achievement-onehundred-water').style.border = '2px solid gold'
+        document.getElementById('achievement-onehundred-water').style.height = '8rem'
+        document.getElementById('achievement-onehundred-water').style.width = '8rem'
+        player.achievementsGot.push('achievement-onehundred-water');
         player.totalAchievements += 1;
         idleCarrots()
     }
@@ -820,4 +1143,34 @@ function checkAchievements() {
     }
 
     document.querySelector('.achievements h2').innerHTML = `Acievements (${player.totalAchievements} / ${noOfAchievements})`;
+}
+
+
+// const rocketChance = setInterval(bunnyRocket, 5000)
+// function bunnyRocket() {
+//     if (Math.floor(Math.random() * 10) > 5) {
+//         console.log('Woosh!!')
+//         document.getElementById('bunny-rocket').hidden = false;
+//     } else {
+//         console.log('BYEYEYEYYEEEEEE')
+//         document.getElementById('bunny-rocket').hidden = true;
+//     }
+// }
+
+function abbreviateNumber(value) {
+    let newValue = value;
+    if (value >= 1000) {
+        let suffixes = ['', 'k', 'm', 'b', 't'];
+        let suffixNum = Math.floor( (''+value).length/3 );
+        let shortValue;
+        for (let precision = 2; precision >= 1; precision--) {
+            shortValue = parseFloat( (suffixNum != 0 ? (value / Math.pow(1000,suffixNum) ) : value).toPrecision(precision));
+            let dotLessShortValue = (shortValue + '').replace(/[^a-zA-z 0-9]+/g, '');
+            if (dotLessShortValue.length <= 2) { break; };
+        }
+        if (shortValue % 1 != 0) shortValue = shortValue.toFixed(1);
+        newValue = shortValue+suffixes[suffixNum];
+    }
+    console.log(newValue)
+    return newValue;
 }

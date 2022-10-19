@@ -9,6 +9,12 @@ body {
     overflow: hidden;
 }
 
+#bunny-rocket {
+    position: absolute;
+    height: 10rem;
+    display: none;
+}
+
 /* Header */
 header {
     margin: 1rem;
