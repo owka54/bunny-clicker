@@ -70,7 +70,7 @@ const prestigeButton = document.getElementById('prestige-button');
 
 
 // Increment carrots every click
-function carrotClick( ) {
+function carrotClick() {
     player.carrots += player.perClick;
     player.allTimeCarrots += player.perClick;
     player.prestigeLevelCarrots += player.perClick;
@@ -398,7 +398,7 @@ function pawUpgrade() {
     idleCarrots();
 
     player.carrots -= 100;
-    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+    document.getElementById('total-carrots').innerHTML = abbrNum(Math.floor(player.carrots), 1);
 
     document.querySelector('#paw-upgrade button').hidden = false;
     document.querySelector('#paw-upgrade button').disabled = true;
@@ -420,7 +420,7 @@ function pawUpgrade2() {
     idleCarrots();
 
     player.carrots -= 500;
-    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+    document.getElementById('total-carrots').innerHTML = abbrNum(Math.floor(player.carrots), 1);
 
     document.querySelector('#paw-upgrade2 button').hidden = false;
     document.querySelector('#paw-upgrade2 button').disabled = true;
@@ -442,7 +442,7 @@ function pawUpgrade3() {
     idleCarrots();
 
     player.carrots -= 750;
-    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+    document.getElementById('total-carrots').innerHTML = abbrNum(Math.floor(player.carrots), 1);
 
     document.querySelector('#paw-upgrade3 button').hidden = false;
     document.querySelector('#paw-upgrade3 button').disabled = true;
@@ -464,7 +464,7 @@ function pawUpgrade4() {
     idleCarrots();
 
     player.carrots -= 1000;
-    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+    document.getElementById('total-carrots').innerHTML = abbrNum(Math.floor(player.carrots), 1);
 
     document.querySelector('#paw-upgrade4 button').hidden = false;
     document.querySelector('#paw-upgrade4 button').disabled = true;
@@ -486,7 +486,7 @@ function clickUpgrade() {
     player.purchasedUpgrades.push('click-upgrade')
 
     player.carrots -= 100;
-    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+    document.getElementById('total-carrots').innerHTML = abbrNum(Math.floor(player.carrots), 1);
 
     document.querySelector('#click-upgrade button').hidden = false;
     document.querySelector('#click-upgrade button').disabled = true;
@@ -507,7 +507,7 @@ function clickUpgrade2() {
     player.purchasedUpgrades.push('click-upgrade2')
 
     player.carrots -= 750;
-    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+    document.getElementById('total-carrots').innerHTML = abbrNum(Math.floor(player.carrots), 1);
 
     document.querySelector('#click-upgrade2 button').hidden = false;
     document.querySelector('#click-upgrade2 button').disabled = true;
@@ -528,7 +528,7 @@ function clickUpgrade3() {
     player.purchasedUpgrades.push('click-upgrade3')
 
     player.carrots -= 1500;
-    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+    document.getElementById('total-carrots').innerHTML = abbrNum(Math.floor(player.carrots), 1);
 
     document.querySelector('#click-upgrade3 button').hidden = false;
     document.querySelector('#click-upgrade3 button').disabled = true;
@@ -549,7 +549,7 @@ function clickUpgrade4() {
     player.purchasedUpgrades.push('click-upgrade4')
 
     player.carrots -= 3000;
-    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+    document.getElementById('total-carrots').innerHTML = abbrNum(Math.floor(player.carrots), 1);
 
     document.querySelector('#click-upgrade4 button').hidden = false;
     document.querySelector('#click-upgrade4 button').disabled = true;
@@ -570,7 +570,7 @@ function clickUpgrade5() {
     player.purchasedUpgrades.push('click-upgrade5')
 
     player.carrots -= 5000;
-    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+    document.getElementById('total-carrots').innerHTML = abbrNum(Math.floor(player.carrots), 1);
 
     document.querySelector('#click-upgrade5 button').hidden = false;
     document.querySelector('#click-upgrade5 button').disabled = true;
@@ -593,7 +593,7 @@ function hayUpgrade() {
     idleCarrots();
 
     player.carrots -= 750;
-    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+    document.getElementById('total-carrots').innerHTML = abbrNum(Math.floor(player.carrots), 1);
 
     document.querySelector('#hay-upgrade button').hidden = false;
     document.querySelector('#hay-upgrade button').disabled = true;
@@ -615,7 +615,7 @@ function hayUpgrade2() {
     idleCarrots();
 
     player.carrots -= 1250;
-    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+    document.getElementById('total-carrots').innerHTML = abbrNum(Math.floor(player.carrots), 1);
 
     document.querySelector('#hay-upgrade2 button').hidden = false;
     document.querySelector('#hay-upgrade2 button').disabled = true;
@@ -637,7 +637,7 @@ function hayUpgrade3() {
     idleCarrots();
 
     player.carrots -= 1750;
-    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+    document.getElementById('total-carrots').innerHTML = abbrNum(Math.floor(player.carrots), 1);
 
     document.querySelector('#hay-upgrade3 button').hidden = false;
     document.querySelector('#hay-upgrade3 button').disabled = true;
@@ -660,7 +660,7 @@ function flowerUpgrade() {
     idleCarrots();
 
     player.carrots -= 1250;
-    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+    document.getElementById('total-carrots').innerHTML = abbrNum(Math.floor(player.carrots), 1);
 
     document.querySelector('#flower-upgrade button').hidden = false;
     document.querySelector('#flower-upgrade button').disabled = true;
@@ -682,7 +682,7 @@ function flowerUpgrade2() {
     idleCarrots();
 
     player.carrots -= 2000;
-    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+    document.getElementById('total-carrots').innerHTML = abbrNum(Math.floor(player.carrots), 1);
 
     document.querySelector('#flower-upgrade2 button').hidden = false;
     document.querySelector('#flower-upgrade2 button').disabled = true;
@@ -704,7 +704,7 @@ function flowerUpgrade3() {
     idleCarrots();
 
     player.carrots -= 3500;
-    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+    document.getElementById('total-carrots').innerHTML = abbrNum(Math.floor(player.carrots), 1);
 
     document.querySelector('#flower-upgrade3 button').hidden = false;
     document.querySelector('#flower-upgrade3 button').disabled = true;
@@ -727,7 +727,7 @@ function waterUpgrade() {
     idleCarrots();
 
     player.carrots -= 2500;
-    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+    document.getElementById('total-carrots').innerHTML = abbrNum(Math.floor(player.carrots), 1);
 
     document.querySelector('#water-upgrade button').hidden = false;
     document.querySelector('#water-upgrade button').disabled = true;
@@ -750,7 +750,7 @@ function hutchUpgrade() {
     idleCarrots();
 
     player.carrots -= 4000;
-    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+    document.getElementById('total-carrots').innerHTML = abbrNum(Math.floor(player.carrots), 1);
 
     document.querySelector('#hutch-upgrade button').hidden = false;
     document.querySelector('#hutch-upgrade button').disabled = true;
@@ -773,7 +773,7 @@ function bunnyUpgrade() {
     idleCarrots();
 
     player.carrots -= 8000;
-    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+    document.getElementById('total-carrots').innerHTML = abbrNum(Math.floor(player.carrots), 1);
 
     document.querySelector('#bunny-upgrade button').hidden = false;
     document.querySelector('#bunny-upgrade button').disabled = true;
@@ -796,7 +796,7 @@ function farmUpgrade() {
     idleCarrots();
 
     player.carrots -= 15000;
-    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+    document.getElementById('total-carrots').innerHTML = abbrNum(Math.floor(player.carrots), 1);
 
     document.querySelector('#farm-upgrade button').hidden = false;
     document.querySelector('#farm-upgrade button').disabled = true;
@@ -818,7 +818,7 @@ function farmUpgrade2() {
     idleCarrots();
 
     player.carrots -= 27500;
-    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+    document.getElementById('total-carrots').innerHTML = abbrNum(Math.floor(player.carrots), 1);
 
     document.querySelector('#farm-upgrade2 button').hidden = false;
     document.querySelector('#farm-upgrade2 button').disabled = true;
@@ -840,7 +840,7 @@ function farmUpgrade3() {
     idleCarrots();
 
     player.carrots -= 45000;
-    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+    document.getElementById('total-carrots').innerHTML = abbrNum(Math.floor(player.carrots), 1);
 
     document.querySelector('#farm-upgrade3 button').hidden = false;
     document.querySelector('#farm-upgrade3 button').disabled = true;
