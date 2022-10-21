@@ -20,7 +20,7 @@ let player = {
 
 let game = {
     storeMultiple: 1,
-    prestigeCost: 1000000,
+    prestigeCost: 100000000,
 }
 
 let storeItems = {
@@ -75,7 +75,7 @@ function carrotClick( ) {
     player.allTimeCarrots += player.perClick;
     player.prestigeLevelCarrots += player.perClick;
     player.totalClicks += 1;
-    document.getElementById('total-carrots').innerHTML = player.carrots.toFixed(0);
+    document.getElementById('total-carrots').innerHTML = abbrNum(player.carrots.toFixed(0), 1);
 }
 
 // Invoke idleIncrement every second
@@ -85,23 +85,30 @@ function idleIncrement() {
     player.carrots += player.perSecond;
     player.allTimeCarrots += player.perSecond;
     player.prestigeLevelCarrots += player.perSecond;
-    document.getElementById('total-carrots').innerHTML = player.carrots.toFixed(0);
+    document.getElementById('total-carrots').innerHTML = abbrNum(player.carrots.toFixed(0), 1);
     // Display cps of each store item when hover over the image
-    document.getElementsByClassName('item-info')[0].innerHTML = `${storeItems.paw.idle} cps`;
-    document.getElementsByClassName('item-info')[1].innerHTML = `${storeItems.hay.idle} cps`;
-    document.getElementsByClassName('item-info')[2].innerHTML = `${storeItems.flower.idle} cps`;
-    document.getElementsByClassName('item-info')[3].innerHTML = `${storeItems.water.idle} cps`;
-    document.getElementsByClassName('item-info')[4].innerHTML = `${storeItems.hutch.idle} cps`;
-    document.getElementsByClassName('item-info')[5].innerHTML = `${storeItems.bunny.idle} cps`;
-    document.getElementsByClassName('item-info')[6].innerHTML = `${storeItems.farm.idle} cps`;
+    let achBonus = 1;
+    let prestBonus = 1;
+    if (player.totalAchievements > 0) {
+        achBonus = 1 + (player.totalAchievements * 0.01);
+    }
+    if (player.prestige > 0) {
+        prestBonus = 1 + (player.prestige * 5) / 100 ;
+    }
+    document.getElementsByClassName('item-info')[0].innerHTML = (storeItems.paw.idle * achBonus * prestBonus).toFixed(1) + 'cps';
+    document.getElementsByClassName('item-info')[1].innerHTML = (storeItems.hay.idle * achBonus * prestBonus).toFixed(1) + 'cps';
+    document.getElementsByClassName('item-info')[2].innerHTML = (storeItems.flower.idle * achBonus * prestBonus).toFixed(1) + 'cps';
+    document.getElementsByClassName('item-info')[3].innerHTML = (storeItems.water.idle * achBonus * prestBonus).toFixed(1) + 'cps';
+    document.getElementsByClassName('item-info')[4].innerHTML = (storeItems.hutch.idle * achBonus * prestBonus).toFixed(1) + 'cps';
+    document.getElementsByClassName('item-info')[5].innerHTML = (storeItems.bunny.idle * achBonus * prestBonus).toFixed(1) + 'cps';
+    document.getElementsByClassName('item-info')[6].innerHTML = (storeItems.farm.idle * achBonus * prestBonus).toFixed(1) + 'cps';
 
-    // Display amount of carrots needed before prestige
+    // Display amount of carrots needed before prestige when hovering over prestige button
     const amountNeeded = game.prestigeCost - player.prestigeLevelCarrots;
-    document.getElementById('prestige-left').innerHTML = amountNeeded <= 0 ? 'Prestige Ready!' : amountNeeded + ' carrots needed to prestige';
+    document.getElementById('prestige-left').innerHTML = amountNeeded <= 0 ? 'Prestige Ready!' : abbrNum(amountNeeded.toFixed(0), 0) + ' carrots needed to prestige';
 
     // Display number of cookies in the tab
-    document.getElementsByTagName('title')[0].innerHTML = `${Math.floor(player.carrots)} carrots - Bunny Clicker`;
-
+    document.getElementsByTagName('title')[0].innerHTML = abbrNum(Math.floor(player.carrots), 1) + ' carrots - Bunny Clicker';
     if (player.prestigeLevelCarrots >= game.prestigeCost) {
         prestigeButton.disabled = false;
         prestigeButton.style.opacity = 1;
@@ -120,7 +127,7 @@ function idleCarrots() {
     if (player.prestige > 0) {
         prestigeBonus()
     }
-    const onedp = player.perSecond.toFixed(1)
+    const onedp = abbrNum(player.perSecond.toFixed(1), 1)
     document.getElementById('idle-carrots').innerHTML = (onedp == 0.0) ? `0 carrots per second` : `${onedp} carrots per second`;
 }
 // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // 
@@ -158,6 +165,7 @@ window.onload = function() {
     loadGame();
     idleCarrots();
 
+    multipleItemCosts();
     displayStore();
 
     for (let achievement in player.achievementsGot) {
@@ -196,32 +204,46 @@ function storeMultiple(value) {
     game.storeMultiple = value;
     displayStore();
 }
+function multipleItemCosts() {
+    const items = ['paw', 'hay', 'flower', 'water', 'hutch', 'bunny', 'farm'];
+    for (let item of items) {
+        let p = storeItems[item].cost;
+        let sum = Number(p);
+    
+        const nums = [[10, 'ten'], [100, 'onehundred']];
+
+        for (let num in nums) {
+           
+            for (let n = 1; n < nums[num][0]; n++) {
+                p = Number((p * 1.15).toFixed(1));
+                sum += p;
+            }
+            
+            if (nums[num][1] == 'ten') {
+                storeItems[item].tenCost = Number(sum.toFixed(1));
+            } else {
+                storeItems[item].onehundredCost = Number(sum.toFixed(1));
+            }
+        }
+    }
+}
 
 function displayStore() {
     const items = ['paw', 'hay', 'flower', 'water', 'hutch', 'bunny', 'farm'];
-    // If not buying 1
-    if (game.storeMultiple != 1) {
-        for (let item of items) {
-            // set p to initial price
-            let p = storeItems[item].cost;
-            let sum = Number(p);
-            
-            for (let n = 1; n < game.storeMultiple; n++) {
-                // set p to new price
-                p = Number((p * 1.15).toFixed(1));
-                // add to sum
-                sum += p;
-            }
-            document.getElementById(`${item}-cost`).innerHTML = sum.toFixed(1);
-            document.getElementById(`${item}-total`).innerHTML = `x${storeItems[item].total}`;
+    for (let item of items) {
+        // Display the correct cost depending on the buy multiple selected
+        if (game.storeMultiple == 1) {
+            document.getElementById(`${item}-cost`).innerHTML = abbrNum(storeItems[item].cost.toFixed(0), 1);
+        } else if (game.storeMultiple == 10) {
+            document.getElementById(`${item}-cost`).innerHTML = abbrNum(storeItems[item].tenCost.toFixed(0), 1);
+        } else {
+            document.getElementById(`${item}-cost`).innerHTML = abbrNum(storeItems[item].onehundredCost.toFixed(0), 1);
         }
-    } else {
-        for (let item of items) {
-            document.getElementById(`${item}-cost`).innerHTML = Number(storeItems[item].cost).toFixed(1);
-            document.getElementById(`${item}-total`).innerHTML = `x${storeItems[item].total}`;
-        }
+        // Display total items owned
+        document.getElementById(`${item}-total`).innerHTML = `x${storeItems[item].total}`;
     }
 
+    // Change the text of the buy & sell buttons to correspond to the selected buy/sell multiplier
     const buyButtons = document.querySelectorAll('.buy-button');
     buyButtons.forEach(button => {
         button.innerHTML = `Buy ${game.storeMultiple}`
@@ -234,26 +256,40 @@ function displayStore() {
 
 function storeItemBuy(item) {
     const storeItem = storeItems[item];
-    // (storeItem.cost * game.storeMultiple)
 
-    if (player.carrots < document.getElementById(`${item}-cost`).innerHTML) {
-        alert('Not enough carrots!');
-        return;
-    }
     storeItem.total += Number(game.storeMultiple);
-    player.carrots -= document.getElementById(`${item}-cost`).innerHTML;
-    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots);
+    if (game.storeMultiple == 1) {
+        if (player.carrots < storeItem.cost) {
+            alert('Not enough carrots!');
+            return;
+        }
+        player.carrots -= storeItem.cost;
+    } else if (game.storeMultiple == 10) {
+        if (player.carrots < storeItem.tenCost) {
+            alert('Not enough carrots!');
+            return;
+        }
+        player.carrots -= storeItem.tenCost;
+    } else {
+        if (player.carrots < storeItem.onehundredCost) {
+            alert('Not enough carrots!');
+            return;
+        }
+        player.carrots -= storeItem.onehundredCost;
+    }
+    document.getElementById('total-carrots').innerHTML = abbrNum(Math.floor(player.carrots), 1);
 
     if (game.storeMultiple !== 1) {
         let cost = storeItem.cost;
         for (let n = 1; n <= game.storeMultiple; n++) {
             cost *= 1.15;
         }
-        storeItem.cost = cost.toFixed(1);
+        storeItem.cost = Number(cost.toFixed(1));
     } else {
         storeItem.cost *= 1.15;
     }
     
+    multipleItemCosts();
     displayStore();
     idleCarrots();
 }
@@ -267,11 +303,22 @@ function storeItemSell(item) {
     storeItem.total -= Number(game.storeMultiple);
     player.carrots += ((storeItem.cost / 4) * game.storeMultiple);
     // document.getElementById(`${item}-total`).innerHTML = `x${storeItem.total * game.storeMultiple}`;
-    document.getElementById('total-carrots').innerHTML = Math.floor(player.carrots)
+    document.getElementById('total-carrots').innerHTML = abbrNum(Math.floor(player.carrots), 1);
 
-    storeItem.cost *= (0.87 * game.storeMultiple);
+    // storeItem.cost *= (0.87 * game.storeMultiple);
     // document.getElementById(`${item}-cost`).innerHTML = (storeItem.cost * game.storeMultiple).toFixed(1);
 
+    if (game.storeMultiple !== 1) {
+        let cost = storeItem.cost;
+        for (let n = 1; n <= game.storeMultiple; n++) {
+            cost *= 0.87;
+        }
+        storeItem.cost = Number(cost.toFixed(1));
+    } else {
+        storeItem.cost *= 0.87;
+    }
+
+    multipleItemCosts();
     displayStore();
     idleCarrots();
 }
@@ -302,13 +349,14 @@ function prestige() {
                 },
                 game: {
                     prestigeCost: game.prestigeCost,
+                    storeMultiple: 1,
                 }
             }
             localStorage.setItem('gameSave', JSON.stringify(gameSave));
             location.reload();
 }}
 function prestigeBonus() {
-    let totalBonus = player.prestige * 10;
+    let totalBonus = player.prestige * 5;
     player.perSecond += player.perSecond * totalBonus;
     let prestigeBoost = totalBonus;
     if (player.prestige > 0) {
@@ -1303,7 +1351,7 @@ bunnyRocket.addEventListener('click', () => {
     player.allTimeCarrots += toAdd;
     player.prestigeLevelCarrots += toAdd;
     player.totalRocketBunnyClicks += 1;
-    document.getElementById('total-carrots').innerHTML = player.carrots.toFixed(0);
+    document.getElementById('total-carrots').innerHTML = abbrNum(player.carrots.toFixed(0), 1);
     bunnyRocket.hidden = true;
 })
 
@@ -1335,24 +1383,36 @@ function bunnyRocketAppear() {
 }
 
 
-
-
-
-
-// function abbreviateNumber(value) {
-//     let newValue = value;
-//     if (value >= 1000) {
-//         let suffixes = ['', 'k', 'm', 'b', 't'];
-//         let suffixNum = Math.floor( (''+value).length/3 );
-//         let shortValue;
-//         for (let precision = 2; precision >= 1; precision--) {
-//             shortValue = parseFloat( (suffixNum != 0 ? (value / Math.pow(1000,suffixNum) ) : value).toPrecision(precision));
-//             let dotLessShortValue = (shortValue + '').replace(/[^a-zA-z 0-9]+/g, '');
-//             if (dotLessShortValue.length <= 2) { break; };
-//         }
-//         if (shortValue % 1 != 0) shortValue = shortValue.toFixed(1);
-//         newValue = shortValue+suffixes[suffixNum];
-//     }
-//     console.log(newValue)
-//     return newValue;
-// }
+const abbrNum = (number, decPlaces) => {
+    // 2 decimal places => 100, 3 => 1000, etc
+    decPlaces = Math.pow(10, decPlaces)
+  
+    // Enumerate number abbreviations
+    var abbrev = ['k', 'm', 'b', 't', 'q', 'Q', 's', 'S', 'o', 'n', 'd']
+  
+    // Go through the array backwards, so we do the largest first
+    for (var i = abbrev.length - 1; i >= 0; i--) {
+      // Convert array index to "1000", "1000000", etc
+      var size = Math.pow(10, (i + 1) * 3)
+  
+      // If the number is bigger or equal do the abbreviation
+      if (size <= number) {
+        // Here, we multiply by decPlaces, round, and then divide by decPlaces.
+        // This gives us nice rounding to a particular decimal place.
+        number = Math.round((number * decPlaces) / size) / decPlaces
+  
+        // Handle special case where we round up to the next abbreviation
+        if (number == 1000 && i < abbrev.length - 1) {
+          number = 1
+          i++
+        }
+  
+        // Add the letter for the abbreviation
+        number += abbrev[i]
+  
+        // We are done... stop
+        break
+      }
+    }
+      return number
+  }
