@@ -76,6 +76,8 @@ function carrotClick() {
     player.prestigeLevelCarrots += player.perClick;
     player.totalClicks += 1;
     document.getElementById('total-carrots').innerHTML = abbrNum(player.carrots.toFixed(0), 1);
+    canBuy();
+    canSell();
 }
 
 // Invoke idleIncrement every second
@@ -117,6 +119,9 @@ function idleIncrement() {
         prestigeButton.style.opacity = .5;
         prestigeButton.style.backgroundColor = 'rgb(255, 128, 0)';
     }
+
+    canBuy();
+    canSell();
 }
 // Calculate and display carrots per second
 function idleCarrots() {
@@ -164,6 +169,7 @@ document.addEventListener('keydown', function(event) {
 window.onload = function() {
     loadGame();
     idleCarrots();
+    canBuy();
 
     multipleItemCosts();
     displayStore();
@@ -203,6 +209,48 @@ function resetGame() {
 function storeMultiple(value) {
     game.storeMultiple = value;
     displayStore();
+}
+function canBuy() {
+    const items = ['paw', 'hay', 'flower', 'water', 'hutch', 'bunny', 'farm'];
+    if (game.storeMultiple == 1) {
+        for (let item of items) {
+            const storeItem = storeItems[item];
+            if (player.carrots < storeItem.cost) {
+                document.querySelector(`#${item} .buy-button`).disabled = true;
+            } else {
+                document.querySelector(`#${item} .buy-button`).disabled = false;
+            }
+        }
+    } else if (game.storeMultiple == 10) {
+        for (let item of items) {
+            const storeItem = storeItems[item];
+            if (player.carrots < storeItem.tenCost) {
+                document.querySelector(`#${item} .buy-button`).disabled = true;
+            } else {
+                document.querySelector(`#${item} .buy-button`).disabled = false;
+            }
+        }
+    } else if (game.storeMultiple == 100) {
+        for (let item of items) {
+            const storeItem = storeItems[item];
+            if (player.carrots < storeItem.onehundredCost) {
+                document.querySelector(`#${item} .buy-button`).disabled = true;
+            } else {
+                document.querySelector(`#${item} .buy-button`).disabled = false;
+            }
+        }
+    }
+}
+function canSell() {
+    const items = ['paw', 'hay', 'flower', 'water', 'hutch', 'bunny', 'farm'];
+    for (let item of items) {
+        const storeItem = storeItems[item];
+        if (storeItem.total - game.storeMultiple < 0) {
+            document.querySelector(`#${item} .sell-button`).disabled = true;
+        } else {
+            document.querySelector(`#${item} .sell-button`).disabled = false;
+        }
+    }
 }
 function multipleItemCosts() {
     const items = ['paw', 'hay', 'flower', 'water', 'hutch', 'bunny', 'farm'];
@@ -252,6 +300,9 @@ function displayStore() {
     sellButtons.forEach(button => {
         button.innerHTML = `Sell ${game.storeMultiple}`
     })
+
+    canBuy();
+    canSell();
 }
 
 function storeItemBuy(item) {
@@ -292,6 +343,8 @@ function storeItemBuy(item) {
     multipleItemCosts();
     displayStore();
     idleCarrots();
+    canBuy();
+    canSell();
 }
 function storeItemSell(item) {
     const storeItem = storeItems[item];
@@ -321,6 +374,8 @@ function storeItemSell(item) {
     multipleItemCosts();
     displayStore();
     idleCarrots();
+    canBuy();
+    canSell();
 }
 
 

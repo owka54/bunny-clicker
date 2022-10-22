@@ -7,7 +7,7 @@ body {
     background-color: rgb(24, 24, 24);
     color: white;
     overflow: hidden;
-    max-height: 100vh;
+    max-height: 90vh;
 }
 
 #bunny-rocket {
