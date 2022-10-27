@@ -26,7 +26,7 @@
     </header>
 
     <main>
-        <div>
+        <div class="top">
             <div id="total-carrots">0</div>
             <div id="idle-carrots"></div>
             <!-- Only visable occasionally -->
@@ -355,7 +355,7 @@
                                     <img src="./resources/images/hay-roll.png" alt="Hay roll">
                                 </div>
                                 <h3>Hay</h3>
-                                <p class ='cost'>Cost: <span id="hay-cost">100</span></p>
+                                <p class ='cost'>Cost: <span id="hay-cost">150</span></p>
                                 <button value='hay' class='buy-button' onclick={storeItemBuy(value)}>Buy 1</button> 
                                 <button value='hay' class='sell-button' onclick={storeItemSell(value)}>Sell 1</button>  
                             </li>
@@ -374,6 +374,20 @@
                                 <button value='flower' class='sell-button' onclick={storeItemSell(value)}>Sell 1</button> 
                             </li>
                         </div>
+
+                        <div class="store-item">
+                            <li id="lettuce">
+                                <p id="lettuce-total"></p>
+                                <div>
+                                    <div class="item-info"></div>
+                                    <img src="./resources/images/lettuce.png" alt="Lettuce">
+                                </div>
+                                <h3>Lettuce</h3>
+                                <p class ='cost'>Cost: <span id="lettuce-cost">1250</span></p>
+                                <button value='lettuce' class='buy-button' onclick={storeItemBuy(value)}>Buy 1</button> 
+                                <button value='lettuce' class='sell-button' onclick={storeItemSell(value)}>Sell 1</button> 
+                            </li>
+                        </div>
                         
                         <div class="store-item">
                             <li id="water">
@@ -383,7 +397,7 @@
                                     <img src="./resources/images/drink-bottle.png" alt="Water bottle">
                                 </div>
                                 <h3>Water</h3>
-                                <p class ='cost'>Cost: <span id="water-cost">1000</span></p>
+                                <p class ='cost'>Cost: <span id="water-cost">3000</span></p>
                                 <button value='water' class='buy-button' onclick={storeItemBuy(value)}>Buy 1</button> 
                                 <button value='water' class='sell-button' onclick={storeItemSell(value)}>Sell 1</button> 
                             </li>
@@ -397,7 +411,7 @@
                                     <img src="./resources/images/tunnel.png" alt="Play tunnel">
                                 </div>
                                 <h3>Tunnel</h3>
-                                <p class ='cost'>Cost: <span id="tunnel-cost">1000</span></p>
+                                <p class ='cost'>Cost: <span id="tunnel-cost">7500</span></p>
                                 <button value='tunnel' class='buy-button' onclick={storeItemBuy(value)}>Buy 1</button> 
                                 <button value='tunnel' class='sell-button' onclick={storeItemSell(value)}>Sell 1</button> 
                             </li>
@@ -411,7 +425,7 @@
                                     <img src="./resources/images/rabbit-hutch.png" alt="Rabbit hutch">
                                 </div>
                                 <h3>Hutch</h3>
-                                <p class ='cost'>Cost: <span id="hutch-cost">2500</span></p>
+                                <p class ='cost'>Cost: <span id="hutch-cost">12500</span></p>
                                 <button value='hutch' class='buy-button' onclick={storeItemBuy(value)}>Buy 1</button> 
                                 <button value='hutch' class='sell-button' onclick={storeItemSell(value)}>Sell 1</button>  
                             </li>
@@ -425,7 +439,7 @@
                                     <img src="./resources/images/bunny.png" alt="Bunny with carrot">
                                 </div>
                                 <h3>Bunny</h3>
-                                <p class="cost">Cost: <span id="bunny-cost">5000</span></p>
+                                <p class="cost">Cost: <span id="bunny-cost">20000</span></p>
                                 <button value='bunny' class='buy-button' onclick={storeItemBuy(value)}>Buy 1</button> 
                                 <button value='bunny' class='sell-button' onclick={storeItemSell(value)}>Sell 1</button>  
                             </li>
@@ -442,6 +456,34 @@
                                 <p class="cost">Cost: <span id="farm-cost">10000</span></p>
                                 <button value='farm' class='buy-button' onclick={storeItemBuy(value)}>Buy 1</button> 
                                 <button value='farm' class='sell-button' onclick={storeItemSell(value)}>Sell 1</button> 
+                            </li>
+                        </div>
+
+                        <div class="store-item">
+                            <li id="portal">
+                                <p id="portal-total"></p>
+                                <div>
+                                    <div class="item-info"></div>
+                                    <img src="./resources/images/portal.png" alt="portal">
+                                </div>
+                                <h3>Portal</h3>
+                                <p class="cost">Cost: <span id="portal-cost">10000</span></p>
+                                <button value='portal' class='buy-button' onclick={storeItemBuy(value)}>Buy 1</button> 
+                                <button value='portal' class='sell-button' onclick={storeItemSell(value)}>Sell 1</button> 
+                            </li>
+                        </div>
+
+                        <div class="store-item">
+                            <li id="clone">
+                                <p id="clone-total"></p>
+                                <div>
+                                    <div class="item-info"></div>
+                                    <img src="./resources/images/cloning.png" alt="clone">
+                                </div>
+                                <h3>Clone</h3>
+                                <p class="cost">Cost: <span id="clone-cost">10000</span></p>
+                                <button value='clone' class='buy-button' onclick={storeItemBuy(value)}>Buy 1</button> 
+                                <button value='clone' class='sell-button' onclick={storeItemSell(value)}>Sell 1</button> 
                             </li>
                         </div>
                     </ul>

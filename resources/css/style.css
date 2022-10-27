@@ -86,6 +86,7 @@ main {
     display: grid;
     grid-template-columns: 2fr 3fr;
     text-align: center;
+    max-height: 90vh;
 }
 #total-carrots {
     font-family: cookies;
@@ -223,7 +224,7 @@ main {
 .upgrades-store button {
     height: 4rem;
     width: 4rem;
-    border: 5px solid burlywood;
+    border: 3px solid burlywood;
     background-color: black;
     color: white;
 }

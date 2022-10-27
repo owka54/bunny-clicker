@@ -31,7 +31,7 @@ let storeItems = {
     },
     hay: {
         total: 0,
-        cost: 100,
+        cost: 150,
         idle: 1
     },
     flower: {
@@ -39,30 +39,45 @@ let storeItems = {
         cost: 500,
         idle: 5
     },
+    lettuce: {
+        total: 0,
+        cost: 1250,
+        idle: 10
+    },
     water: {
         total: 0,
-        cost: 1000,
-        idle: 10
+        cost: 3000,
+        idle: 25
     },
     tunnel: {
         total: 0,
-        cost: 2500,
-        idle: 25
+        cost: 7500,
+        idle: 50
     },
     hutch: {
         total: 0,
-        cost: 5000,
-        idle: 50
+        cost: 12500,
+        idle: 100
     },
     bunny: {
         total: 0,
-        cost: 10000,
-        idle: 100
+        cost: 20000,
+        idle: 250
     },
     farm: {
         total: 0,
-        cost: 17500,
-        idle: 250
+        cost: 27500,
+        idle: 500
+    },
+    portal: {
+        total: 0,
+        cost: 50000,
+        idle: 1000
+    },
+    clone: {
+        total: 0,
+        cost: 85000,
+        idle: 2500
     }
 }
 
@@ -143,11 +158,14 @@ function idleIncrement() {
     document.getElementsByClassName('item-info')[0].innerHTML = (storeItems.paw.idle * achBonus * prestBonus).toFixed(1) + 'cps';
     document.getElementsByClassName('item-info')[1].innerHTML = (storeItems.hay.idle * achBonus * prestBonus).toFixed(1) + 'cps';
     document.getElementsByClassName('item-info')[2].innerHTML = (storeItems.flower.idle * achBonus * prestBonus).toFixed(1) + 'cps';
-    document.getElementsByClassName('item-info')[3].innerHTML = (storeItems.water.idle * achBonus * prestBonus).toFixed(1) + 'cps';
-    document.getElementsByClassName('item-info')[4].innerHTML = (storeItems.tunnel.idle * achBonus * prestBonus).toFixed(1) + 'cps';
-    document.getElementsByClassName('item-info')[5].innerHTML = (storeItems.hutch.idle * achBonus * prestBonus).toFixed(1) + 'cps';
-    document.getElementsByClassName('item-info')[6].innerHTML = (storeItems.bunny.idle * achBonus * prestBonus).toFixed(1) + 'cps';
-    document.getElementsByClassName('item-info')[7].innerHTML = (storeItems.farm.idle * achBonus * prestBonus).toFixed(1) + 'cps';
+    document.getElementsByClassName('item-info')[3].innerHTML = (storeItems.lettuce.idle * achBonus * prestBonus).toFixed(1) + 'cps';
+    document.getElementsByClassName('item-info')[4].innerHTML = (storeItems.water.idle * achBonus * prestBonus).toFixed(1) + 'cps';
+    document.getElementsByClassName('item-info')[5].innerHTML = (storeItems.tunnel.idle * achBonus * prestBonus).toFixed(1) + 'cps';
+    document.getElementsByClassName('item-info')[6].innerHTML = (storeItems.hutch.idle * achBonus * prestBonus).toFixed(1) + 'cps';
+    document.getElementsByClassName('item-info')[7].innerHTML = (storeItems.bunny.idle * achBonus * prestBonus).toFixed(1) + 'cps';
+    document.getElementsByClassName('item-info')[8].innerHTML = (storeItems.farm.idle * achBonus * prestBonus).toFixed(1) + 'cps';
+    document.getElementsByClassName('item-info')[9].innerHTML = (storeItems.portal.idle * achBonus * prestBonus).toFixed(1) + 'cps';
+    document.getElementsByClassName('item-info')[10].innerHTML = (storeItems.clone.idle * achBonus * prestBonus).toFixed(1) + 'cps';
 
     // Display amount of carrots needed before prestige when hovering over prestige button
     const amountNeeded = game.prestigeCost - player.prestigeLevelCarrots;
@@ -169,7 +187,7 @@ function idleIncrement() {
 }
 // Calculate and display carrots per second
 function idleCarrots() {
-    player.perSecond = ((storeItems.paw.idle * storeItems.paw.total) + (storeItems.hay.idle * storeItems.hay.total) + (storeItems.flower.idle * storeItems.flower.total) + (storeItems.water.idle * storeItems.water.total) + (storeItems.tunnel.idle * storeItems.tunnel.total) + (storeItems.hutch.idle * storeItems.hutch.total) + (storeItems.bunny.idle * storeItems.bunny.total) + (storeItems.farm.idle * storeItems.farm.total))
+    player.perSecond = ((storeItems.paw.idle * storeItems.paw.total) + (storeItems.hay.idle * storeItems.hay.total) + (storeItems.flower.idle * storeItems.flower.total) + (storeItems.lettuce.idle * storeItems.lettuce.total) + (storeItems.water.idle * storeItems.water.total) + (storeItems.tunnel.idle * storeItems.tunnel.total) + (storeItems.hutch.idle * storeItems.hutch.total) + (storeItems.bunny.idle * storeItems.bunny.total) + (storeItems.farm.idle * storeItems.farm.total) + (storeItems.portal.idle * storeItems.portal.total) + (storeItems.clone.idle * storeItems.clone.total))
     if (player.totalAchievements > 0) {
         achievementBonus()
     }
@@ -256,7 +274,7 @@ function storeMultiple(value) {
     displayStore();
 }
 function canBuy() {
-    const items = ['paw', 'hay', 'flower', 'water', 'tunnel', 'hutch', 'bunny', 'farm'];
+    const items = ['paw', 'hay', 'flower', 'lettuce', 'water', 'tunnel', 'hutch', 'bunny', 'farm', 'portal', 'clone'];
     if (game.storeMultiple == 1) {
         for (let item of items) {
             const storeItem = storeItems[item];
@@ -287,7 +305,7 @@ function canBuy() {
     }
 }
 function canSell() {
-    const items = ['paw', 'hay', 'flower', 'water', 'tunnel', 'hutch', 'bunny', 'farm'];
+    const items = ['paw', 'hay', 'flower', 'lettuce', 'water', 'tunnel', 'hutch', 'bunny', 'farm', 'portal', 'clone'];
     for (let item of items) {
         const storeItem = storeItems[item];
         if (storeItem.total - game.storeMultiple < 0) {
@@ -298,7 +316,7 @@ function canSell() {
     }
 }
 function multipleItemCosts() {
-    const items = ['paw', 'hay', 'flower', 'water', 'tunnel', 'hutch', 'bunny', 'farm'];
+    const items = ['paw', 'hay', 'flower', 'lettuce', 'water', 'tunnel', 'hutch', 'bunny', 'farm', 'portal', 'clone'];
     for (let item of items) {
         let p = storeItems[item].cost;
         let sum = Number(p);
@@ -322,7 +340,7 @@ function multipleItemCosts() {
 }
 
 function displayStore() {
-    const items = ['paw', 'hay', 'flower', 'water', 'tunnel', 'hutch', 'bunny', 'farm'];
+    const items = ['paw', 'hay', 'flower', 'lettuce', 'water', 'tunnel', 'hutch', 'bunny', 'farm', 'portal', 'clone'];
     for (let item of items) {
         // Display the correct cost depending on the buy multiple selected
         if (game.storeMultiple == 1) {
@@ -1556,10 +1574,14 @@ const bunnyRocket = document.getElementById('bunny-rocket');
 bunnyRocket.hidden = true;
 
 bunnyRocket.addEventListener('click', () => {
-    const toAdd = player.perSecond * 100 > 1000 ? player.perSecond * 100 : 1000;
-    player.carrots += toAdd;
-    player.allTimeCarrots += toAdd;
-    player.prestigeLevelCarrots += toAdd;
+    // List of rewards available from clicking bunny rocket
+    const rewards = [1000, 10000, 10 * player.perSecond, 100 * player.perSecond];
+    // Gets a random rewards
+    const rewardIndex = Math.floor(Math.random() * rewards.length);
+    console.log('You get - ' + rewards[rewardIndex]);
+    player.carrots += rewards[rewardIndex];
+    player.allTimeCarrots += rewards[rewardIndex];
+    player.prestigeLevelCarrots += rewards[rewardIndex];
     player.totalRocketBunnyClicks += 1;
     document.getElementById('total-carrots').innerHTML = abbrNum(player.carrots.toFixed(0), 1);
     bunnyRocket.hidden = true;
