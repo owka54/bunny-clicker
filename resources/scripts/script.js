@@ -44,25 +44,30 @@ let storeItems = {
         cost: 1000,
         idle: 10
     },
-    hutch: {
+    tunnel: {
         total: 0,
         cost: 2500,
         idle: 25
     },
-    bunny: {
+    hutch: {
         total: 0,
         cost: 5000,
         idle: 50
     },
-    farm: {
+    bunny: {
         total: 0,
         cost: 10000,
         idle: 100
+    },
+    farm: {
+        total: 0,
+        cost: 17500,
+        idle: 250
     }
 }
 
-noOfAchievements = 34;
-noOfUpgrades = 21;
+noOfAchievements = 41;
+noOfUpgrades = 22;
 // // // // // // // // // //
 
 const prestigeButton = document.getElementById('prestige-button');
@@ -78,16 +83,54 @@ function carrotClick() {
     document.getElementById('total-carrots').innerHTML = abbrNum(player.carrots.toFixed(0), 1);
     canBuy();
     canSell();
-}
 
-// Invoke idleIncrement every second
-var interval = setInterval(idleIncrement, 1000);
+    stop();
+    play();    
+
+    // increaseDisplay();
+}
+function play() {
+    const audio = document.getElementById('crunch-sound');
+    audio.cloneNode(true).play();
+}
+function stop() {
+    const audio = document.getElementById('crunch-sound');
+    audio.pause();
+    audio.currentTime = 0;
+}
+// document.getElementById('click-popup').hidden = true;
+
+// function increaseDisplay() {
+//     document.getElementById('click-crumbs').src = 'resources/images/crumbs-close.png'
+//     document.getElementById('click-popup').hidden = false;
+
+//     function changeImg() {
+//         document.getElementById('click-crumbs').src = 'resources/images/crumbs.png'
+//     }
+
+//     function hide() {
+//         document.getElementById('click-popup').hidden = true;
+//     }
+
+//     setTimeout(changeImg, 20)
+//     setTimeout(hide, 200);
+// }
+
+// Invoke idleIncrement every tenth of a second
+var interval = setInterval(idleIncrement, 100);
 // Increment carrot count by idle amount
 function idleIncrement() {
-    player.carrots += player.perSecond;
-    player.allTimeCarrots += player.perSecond;
-    player.prestigeLevelCarrots += player.perSecond;
+
+    //
+    player.carrots += player.perSecond/10;
     document.getElementById('total-carrots').innerHTML = abbrNum(player.carrots.toFixed(0), 1);
+    player.allTimeCarrots += player.perSecond/10
+    player.prestigeLevelCarrots += player.perSecond/10
+    //
+    // player.carrots += player.perSecond;
+    // player.allTimeCarrots += player.perSecond;
+    // player.prestigeLevelCarrots += player.perSecond;
+    // document.getElementById('total-carrots').innerHTML = abbrNum(player.carrots.toFixed(0), 1);
     // Display cps of each store item when hover over the image
     let achBonus = 1;
     let prestBonus = 1;
@@ -101,9 +144,10 @@ function idleIncrement() {
     document.getElementsByClassName('item-info')[1].innerHTML = (storeItems.hay.idle * achBonus * prestBonus).toFixed(1) + 'cps';
     document.getElementsByClassName('item-info')[2].innerHTML = (storeItems.flower.idle * achBonus * prestBonus).toFixed(1) + 'cps';
     document.getElementsByClassName('item-info')[3].innerHTML = (storeItems.water.idle * achBonus * prestBonus).toFixed(1) + 'cps';
-    document.getElementsByClassName('item-info')[4].innerHTML = (storeItems.hutch.idle * achBonus * prestBonus).toFixed(1) + 'cps';
-    document.getElementsByClassName('item-info')[5].innerHTML = (storeItems.bunny.idle * achBonus * prestBonus).toFixed(1) + 'cps';
-    document.getElementsByClassName('item-info')[6].innerHTML = (storeItems.farm.idle * achBonus * prestBonus).toFixed(1) + 'cps';
+    document.getElementsByClassName('item-info')[4].innerHTML = (storeItems.tunnel.idle * achBonus * prestBonus).toFixed(1) + 'cps';
+    document.getElementsByClassName('item-info')[5].innerHTML = (storeItems.hutch.idle * achBonus * prestBonus).toFixed(1) + 'cps';
+    document.getElementsByClassName('item-info')[6].innerHTML = (storeItems.bunny.idle * achBonus * prestBonus).toFixed(1) + 'cps';
+    document.getElementsByClassName('item-info')[7].innerHTML = (storeItems.farm.idle * achBonus * prestBonus).toFixed(1) + 'cps';
 
     // Display amount of carrots needed before prestige when hovering over prestige button
     const amountNeeded = game.prestigeCost - player.prestigeLevelCarrots;
@@ -125,7 +169,7 @@ function idleIncrement() {
 }
 // Calculate and display carrots per second
 function idleCarrots() {
-    player.perSecond = ((storeItems.paw.idle * storeItems.paw.total) + (storeItems.hay.idle * storeItems.hay.total) + (storeItems.flower.idle * storeItems.flower.total) + (storeItems.water.idle * storeItems.water.total) + (storeItems.hutch.idle * storeItems.hutch.total) + (storeItems.bunny.idle * storeItems.bunny.total) + (storeItems.farm.idle * storeItems.farm.total))
+    player.perSecond = ((storeItems.paw.idle * storeItems.paw.total) + (storeItems.hay.idle * storeItems.hay.total) + (storeItems.flower.idle * storeItems.flower.total) + (storeItems.water.idle * storeItems.water.total) + (storeItems.tunnel.idle * storeItems.tunnel.total) + (storeItems.hutch.idle * storeItems.hutch.total) + (storeItems.bunny.idle * storeItems.bunny.total) + (storeItems.farm.idle * storeItems.farm.total))
     if (player.totalAchievements > 0) {
         achievementBonus()
     }
@@ -170,6 +214,7 @@ window.onload = function() {
     loadGame();
     idleCarrots();
     canBuy();
+    canSell();
 
     multipleItemCosts();
     displayStore();
@@ -211,7 +256,7 @@ function storeMultiple(value) {
     displayStore();
 }
 function canBuy() {
-    const items = ['paw', 'hay', 'flower', 'water', 'hutch', 'bunny', 'farm'];
+    const items = ['paw', 'hay', 'flower', 'water', 'tunnel', 'hutch', 'bunny', 'farm'];
     if (game.storeMultiple == 1) {
         for (let item of items) {
             const storeItem = storeItems[item];
@@ -242,7 +287,7 @@ function canBuy() {
     }
 }
 function canSell() {
-    const items = ['paw', 'hay', 'flower', 'water', 'hutch', 'bunny', 'farm'];
+    const items = ['paw', 'hay', 'flower', 'water', 'tunnel', 'hutch', 'bunny', 'farm'];
     for (let item of items) {
         const storeItem = storeItems[item];
         if (storeItem.total - game.storeMultiple < 0) {
@@ -253,7 +298,7 @@ function canSell() {
     }
 }
 function multipleItemCosts() {
-    const items = ['paw', 'hay', 'flower', 'water', 'hutch', 'bunny', 'farm'];
+    const items = ['paw', 'hay', 'flower', 'water', 'tunnel', 'hutch', 'bunny', 'farm'];
     for (let item of items) {
         let p = storeItems[item].cost;
         let sum = Number(p);
@@ -277,7 +322,7 @@ function multipleItemCosts() {
 }
 
 function displayStore() {
-    const items = ['paw', 'hay', 'flower', 'water', 'hutch', 'bunny', 'farm'];
+    const items = ['paw', 'hay', 'flower', 'water', 'tunnel', 'hutch', 'bunny', 'farm'];
     for (let item of items) {
         // Display the correct cost depending on the buy multiple selected
         if (game.storeMultiple == 1) {
@@ -795,8 +840,31 @@ function waterUpgrade() {
 
 }
 
-function hutchUpgrade() {
+function tunnelUpgrade() {
     if (player.carrots < 4000) {
+        alert('Not enough carrots!');
+        return;
+    }
+    storeItems.tunnel.idle *= 2;
+    player.purchasedUpgrades.push('tunnel-upgrade')
+    idleCarrots();
+
+    player.carrots -= 4000;
+    document.getElementById('total-carrots').innerHTML = abbrNum(Math.floor(player.carrots), 1);
+
+    document.querySelector('#tunnel-upgrade button').hidden = false;
+    document.querySelector('#tunnel-upgrade button').disabled = true;
+    document.querySelector('#tunnel-upgrade button').style.borderColor = 'lime';
+    document.querySelector('#tunnel-upgrade button').style.setProperty('background-color', 'black');
+    document.querySelector('#tunnel-upgrade button').style.marginBottom = '3rem'
+    document.querySelector('#tunnel-upgrade p').hidden = true;
+
+    document.querySelector('.upgrades-store h2').innerHTML = `Upgrades (${player.purchasedUpgrades.length} / ${noOfUpgrades})`;
+
+}
+
+function hutchUpgrade() {
+    if (player.carrots < 8000) {
         alert('Not enough carrots!');
         return;
     }
@@ -804,7 +872,7 @@ function hutchUpgrade() {
     player.purchasedUpgrades.push('hutch-upgrade')
     idleCarrots();
 
-    player.carrots -= 4000;
+    player.carrots -= 8000;
     document.getElementById('total-carrots').innerHTML = abbrNum(Math.floor(player.carrots), 1);
 
     document.querySelector('#hutch-upgrade button').hidden = false;
@@ -819,7 +887,7 @@ function hutchUpgrade() {
 }
 
 function bunnyUpgrade() {
-    if (player.carrots < 8000) {
+    if (player.carrots < 12500) {
         alert('Not enough carrots!');
         return;
     }
@@ -827,7 +895,7 @@ function bunnyUpgrade() {
     player.purchasedUpgrades.push('bunny-upgrade')
     idleCarrots();
 
-    player.carrots -= 8000;
+    player.carrots -= 12500;
     document.getElementById('total-carrots').innerHTML = abbrNum(Math.floor(player.carrots), 1);
 
     document.querySelector('#bunny-upgrade button').hidden = false;
@@ -842,7 +910,7 @@ function bunnyUpgrade() {
 }
 
 function farmUpgrade() {
-    if (player.carrots < 15000) {
+    if (player.carrots < 27500) {
         alert('Not enough carrots!');
         return;
     }
@@ -850,7 +918,7 @@ function farmUpgrade() {
     player.purchasedUpgrades.push('farm-upgrade')
     idleCarrots();
 
-    player.carrots -= 15000;
+    player.carrots -= 27500;
     document.getElementById('total-carrots').innerHTML = abbrNum(Math.floor(player.carrots), 1);
 
     document.querySelector('#farm-upgrade button').hidden = false;
@@ -864,7 +932,7 @@ function farmUpgrade() {
 
 }
 function farmUpgrade2() {
-    if (player.carrots < 27500) {
+    if (player.carrots < 50000) {
         alert('Not enough carrots!');
         return;
     }
@@ -872,7 +940,7 @@ function farmUpgrade2() {
     player.purchasedUpgrades.push('farm-upgrade2')
     idleCarrots();
 
-    player.carrots -= 27500;
+    player.carrots -= 50000;
     document.getElementById('total-carrots').innerHTML = abbrNum(Math.floor(player.carrots), 1);
 
     document.querySelector('#farm-upgrade2 button').hidden = false;
@@ -886,7 +954,7 @@ function farmUpgrade2() {
 
 }
 function farmUpgrade3() {
-    if (player.carrots < 45000) {
+    if (player.carrots < 75000) {
         alert('Not enough carrots!');
         return;
     }
@@ -894,7 +962,7 @@ function farmUpgrade3() {
     player.purchasedUpgrades.push('farm-upgrade3')
     idleCarrots();
 
-    player.carrots -= 45000;
+    player.carrots -= 75000;
     document.getElementById('total-carrots').innerHTML = abbrNum(Math.floor(player.carrots), 1);
 
     document.querySelector('#farm-upgrade3 button').hidden = false;
@@ -1016,9 +1084,32 @@ if (storeItems.water.total < 100) {
     document.getElementById('achievement-onehundred-water').hidden = true
 }
 
+// tunnel achievements
+if (storeItems.tunnel.total < 10) {
+    document.getElementById('achievement-ten-tunnel').hidden = true
+}
+if (storeItems.tunnel.total < 25) {
+    document.getElementById('achievement-twentyfive-tunnel').hidden = true
+}
+if (storeItems.tunnel.total < 50) {
+    document.getElementById('achievement-fifty-tunnel').hidden = true
+}
+if (storeItems.tunnel.total < 100) {
+    document.getElementById('achievement-onehundred-tunnel').hidden = true
+}
+
 // hutch achievements
 if (storeItems.hutch.total < 10) {
     document.getElementById('achievement-ten-hutch').hidden = true
+}
+if (storeItems.hutch.total < 25) {
+    document.getElementById('achievement-twentyfive-hutch').hidden = true
+}
+if (storeItems.hutch.total < 50) {
+    document.getElementById('achievement-fifty-hutch').hidden = true
+}
+if (storeItems.hutch.total < 100) {
+    document.getElementById('achievement-onehundred-hutch').hidden = true
 }
 
 // bunny achievements
@@ -1304,6 +1395,43 @@ function checkAchievements() {
         player.totalAchievements += 1;
         idleCarrots()
     }
+    // tunnel
+    if (storeItems.tunnel.total >= 10 && (!player.achievementsGot.includes('achievement-ten-tunnel'))) {
+        document.getElementById('achievement-ten-tunnel').hidden = false;
+        document.getElementById('achievement-ten-tunnel').style.border = '2px solid gold'
+        document.getElementById('achievement-ten-tunnel').style.height = '8rem'
+        document.getElementById('achievement-ten-tunnel').style.width = '8rem'
+        player.achievementsGot.push('achievement-ten-tunnel');
+        player.totalAchievements += 1;
+        idleCarrots()
+    }
+    if (storeItems.tunnel.total >= 25 && (!player.achievementsGot.includes('achievement-twentyfive-tunnel'))) {
+        document.getElementById('achievement-twentyfive-tunnel').hidden = false;
+        document.getElementById('achievement-twentyfive-tunnel').style.border = '2px solid gold'
+        document.getElementById('achievement-twentyfive-tunnel').style.height = '8rem'
+        document.getElementById('achievement-twentyfive-tunnel').style.width = '8rem'
+        player.achievementsGot.push('achievement-twentyfive-tunnel');
+        player.totalAchievements += 1;
+        idleCarrots()
+    }
+    if (storeItems.tunnel.total >= 50 && (!player.achievementsGot.includes('achievement-fifty-tunnel'))) {
+        document.getElementById('achievement-fifty-tunnel').hidden = false;
+        document.getElementById('achievement-fifty-tunnel').style.border = '2px solid gold'
+        document.getElementById('achievement-fifty-tunnel').style.height = '8rem'
+        document.getElementById('achievement-fifty-tunnel').style.width = '8rem'
+        player.achievementsGot.push('achievement-fifty-tunnel');
+        player.totalAchievements += 1;
+        idleCarrots()
+    }
+    if (storeItems.tunnel.total >= 100 && (!player.achievementsGot.includes('achievement-onehundred-tunnel'))) {
+        document.getElementById('achievement-onehundred-tunnel').hidden = false;
+        document.getElementById('achievement-onehundred-tunnel').style.border = '2px solid gold'
+        document.getElementById('achievement-onehundred-tunnel').style.height = '8rem'
+        document.getElementById('achievement-onehundred-tunnel').style.width = '8rem'
+        player.achievementsGot.push('achievement-onehundred-tunnel');
+        player.totalAchievements += 1;
+        idleCarrots()
+    }
     // hutch
     if (storeItems.hutch.total >= 10 && (!player.achievementsGot.includes('achievement-ten-hutch'))) {
         document.getElementById('achievement-ten-hutch').hidden = false;
@@ -1311,6 +1439,33 @@ function checkAchievements() {
         document.getElementById('achievement-ten-hutch').style.height = '8rem'
         document.getElementById('achievement-ten-hutch').style.width = '8rem'
         player.achievementsGot.push('achievement-ten-hutch');
+        player.totalAchievements += 1;
+        idleCarrots()
+    }
+    if (storeItems.hutch.total >= 25 && (!player.achievementsGot.includes('achievement-twentyfive-hutch'))) {
+        document.getElementById('achievement-twentyfive-hutch').hidden = false;
+        document.getElementById('achievement-twentyfive-hutch').style.border = '2px solid gold'
+        document.getElementById('achievement-twentyfive-hutch').style.height = '8rem'
+        document.getElementById('achievement-twentyfive-hutch').style.width = '8rem'
+        player.achievementsGot.push('achievement-twentyfive-hutch');
+        player.totalAchievements += 1;
+        idleCarrots()
+    }
+    if (storeItems.hutch.total >= 50 && (!player.achievementsGot.includes('achievement-fifty-hutch'))) {
+        document.getElementById('achievement-fifty-hutch').hidden = false;
+        document.getElementById('achievement-fifty-hutch').style.border = '2px solid gold'
+        document.getElementById('achievement-fifty-hutch').style.height = '8rem'
+        document.getElementById('achievement-fifty-hutch').style.width = '8rem'
+        player.achievementsGot.push('achievement-fifty-hutch');
+        player.totalAchievements += 1;
+        idleCarrots()
+    }
+    if (storeItems.hutch.total >= 100 && (!player.achievementsGot.includes('achievement-onehundred-hutch'))) {
+        document.getElementById('achievement-onehundred-hutch').hidden = false;
+        document.getElementById('achievement-onehundred-hutch').style.border = '2px solid gold'
+        document.getElementById('achievement-onehundred-hutch').style.height = '8rem'
+        document.getElementById('achievement-onehundred-hutch').style.width = '8rem'
+        player.achievementsGot.push('achievement-onehundred-hutch');
         player.totalAchievements += 1;
         idleCarrots()
     }

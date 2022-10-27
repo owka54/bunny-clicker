@@ -7,6 +7,8 @@
     <meta name="description" content="Bunny Clicker. Idle clicker game where you collect carrots to buy items and upgrades to get even more carrots!">
     <link rel="stylesheet" href="./resources/css/style.css">
     <link rel="icon" href="./resources/images/logo.ico">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434686427796079"
+     crossorigin="anonymous"></script>
     <title>Bunny Clicker</title>
 </head>
 <body>
@@ -31,6 +33,10 @@
             <img id="bunny-rocket" src="./resources/images/bunny-carrot-rocket.png" alt="Bunny on a carrot rocket">
             <!-- "https://www.flaticon.com/free-icons/carrot" created by Freepik - Flaticon -->
             <img id='main-carrot' src="./resources/images/carrot.png" alt="A carrot" onclick={carrotClick()}>   
+            <!-- <div id="click-popup">
+                <img id="click-crumbs" src="./resources/images/crumbs-close.png" alt="Carrot crumbs">
+            </div> -->
+            <audio id="crunch-sound" src="./resources/sounds/carrot-crunch.mp3"></audio>
         </div>
 
         <div class="display-buttons">
@@ -215,9 +221,52 @@
                     </div>
 
                     <div class="achievement">
+                        <div id="achievement-ten-tunnel">
+                            <h4>10 tunnels</h4>
+                            <p>Have 10 tunnels</p>
+                        </div>
+                    </div>
+                    <div class="achievement">
+                        <div id="achievement-twentyfive-tunnel">
+                            <h4>25 tunnels</h4>
+                            <p>Have 25 tunnels</p>
+                        </div>
+                    </div>
+                    <div class="achievement">
+                        <div id="achievement-fifty-tunnel">
+                            <h4>50 tunnels</h4>
+                            <p>Have 50 tunnels</p>
+                        </div>
+                    </div>
+                    <div class="achievement">
+                        <div id="achievement-onehundred-tunnel">
+                            <h4>100 tunnels</h4>
+                            <p>Have 100 tunnels</p>
+                        </div>
+                    </div>
+
+                    <div class="achievement">
                         <div id="achievement-ten-hutch">
                             <h4>10 hutches</h4>
                             <p>Have 10 hutches</p>
+                        </div>
+                    </div>
+                    <div class="achievement">
+                        <div id="achievement-twentyfive-hutch">
+                            <h4>25 hutches</h4>
+                            <p>Have 25 hutches</p>
+                        </div>
+                    </div>
+                    <div class="achievement">
+                        <div id="achievement-fifty-hutch">
+                            <h4>50 hutches</h4>
+                            <p>Have 50 hutches</p>
+                        </div>
+                    </div>
+                    <div class="achievement">
+                        <div id="achievement-onehundred-hutch">
+                            <h4>100 hutches</h4>
+                            <p>Have 100 hutches</p>
                         </div>
                     </div>
 
@@ -337,6 +386,20 @@
                                 <p class ='cost'>Cost: <span id="water-cost">1000</span></p>
                                 <button value='water' class='buy-button' onclick={storeItemBuy(value)}>Buy 1</button> 
                                 <button value='water' class='sell-button' onclick={storeItemSell(value)}>Sell 1</button> 
+                            </li>
+                        </div>
+                        
+                        <div class="store-item">
+                            <li id="tunnel">
+                                <p id="tunnel-total"></p>
+                                <div>
+                                    <div class="item-info"></div>
+                                    <img src="./resources/images/tunnel.png" alt="Play tunnel">
+                                </div>
+                                <h3>Tunnel</h3>
+                                <p class ='cost'>Cost: <span id="tunnel-cost">1000</span></p>
+                                <button value='tunnel' class='buy-button' onclick={storeItemBuy(value)}>Buy 1</button> 
+                                <button value='tunnel' class='sell-button' onclick={storeItemSell(value)}>Sell 1</button> 
                             </li>
                         </div>
                         
@@ -490,35 +553,42 @@
                         </div>
                         
                         <div class="upgrade">
+                            <div id="tunnel-upgrade">
+                                <button onclick={tunnelUpgrade()}>Tunnel x1.5</button>
+                                <p>Cost:4,000</p>
+                            </div>
+                        </div>
+
+                        <div class="upgrade">
                             <div id="hutch-upgrade">
                                 <button onclick={hutchUpgrade()}>Hutch x1.5</button>
-                                <p>Cost:4,000</p>
+                                <p>Cost:8,000</p>
                             </div>
                         </div>
                         
                         <div class="upgrade">
                             <div id="bunny-upgrade">
                                 <button onclick={bunnyUpgrade()}>Bunny x1.5</button>
-                                <p>Cost:8,000</p>
+                                <p>Cost:12,500</p>
                             </div>
                         </div>
                         
                         <div class="upgrade">
                             <div id="farm-upgrade">
                                 <button onclick={farmUpgrade()}>Farm x1.5</button>
-                                <p>Cost:15,000</p>
+                                <p>Cost:27,500</p>
                             </div>
                         </div>
                         <div class="upgrade">
                             <div id="farm-upgrade2">
                                 <button onclick={farmUpgrade2()}>Farm x2</button>
-                                <p>Cost:27,500</p>
+                                <p>Cost:50,000</p>
                             </div>
                         </div>
                         <div class="upgrade">
                             <div id="farm-upgrade3">
                                 <button onclick={farmUpgrade3()}>Farm x2</button>
-                                <p>Cost:45,000</p>
+                                <p>Cost:75,000</p>
                             </div>
                         </div>
 

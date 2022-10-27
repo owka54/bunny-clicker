@@ -1,3 +1,12 @@
+@font-face {
+    font-family: cookies;
+    src: url('../fonts/Cookies.ttf');
+}
+@font-face {
+    font-family: slasherfilm;
+    src: url('../fonts/slasherfilmexpand.ttf');
+}
+
 html, body {
     margin: 0;
     padding: 0;
@@ -79,8 +88,13 @@ main {
     text-align: center;
 }
 #total-carrots {
-    font-size: 3rem;
+    font-family: cookies;
+    font-size: 4rem;
     padding: 2rem;
+}
+#idle-carrots {
+    font-family: slasherFilm;
+    font-size: 1.5rem;
 }
 #main-carrot {
     padding: 5rem;
@@ -90,6 +104,23 @@ main {
     top: .1rem;
     transform: translateY(.1rem);
 }
+#click-popup {
+    position: static;
+    top: 15rem;
+    transform: translateY(-15rem);
+
+    font-size: 2rem;
+    font-weight: bold;
+
+    user-select: none;
+    margin: 0;
+    padding: 0;
+}
+#click-crumbs {
+    margin: 0;
+    padding: 0;
+}
+
 
 .buy-container {
     max-height: 60%;
@@ -192,7 +223,7 @@ main {
 .upgrades-store button {
     height: 4rem;
     width: 4rem;
-    border: 2px solid burlywood;
+    border: 5px solid burlywood;
     background-color: black;
     color: white;
 }

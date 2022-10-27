@@ -1,0 +1,48 @@
+html, body {
+    padding: 0;
+    margin: 0;
+}
+
+@font-face {
+    font-family: cookies;
+    src: url('../fonts/Cookies.ttf');
+}
+
+header {
+    text-align: center;
+    background-color: cadetblue;
+    padding: .1rem;
+    border-bottom: 2px solid black;
+}
+header h1 {
+    font-size: 4rem;
+    font-family: cookies;
+    color: white;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
+}
+header img {
+    height: 10rem;
+}
+
+.intro {
+    text-align: center;
+    padding: 2rem;
+}
+
+.update {
+    border: 1px solid black;
+    box-shadow: 2px 2px goldenrod;
+    width: 70%;
+    margin: 1rem auto;
+    padding: 1rem;
+    background-color: burlywood;
+}
+.update h3 {
+    text-decoration: underline;
+    font-size: 1.5rem;
+}
+.update h5 {
+    font-style: italic;
+    font-size: 1rem;
+}
